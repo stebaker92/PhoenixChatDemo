@@ -14,7 +14,10 @@
     <div style="padding-left: 15px; top:-8px; position: relative;">
         <span [hidden]="!membersTyping">{{membersTyping}} is typing ... </span>
     </div>
-    <form name="message">
+
+    <input type="button" *ngIf="!chatStarted" (click)="startChat()" value="Start Chat" style="width: 100%;"/>
+
+    <form name="message" *ngIf="chatStarted">
         <input id="chat-input" type="text" [placeholder]="!connectedToAgent ? 'Connecting to agent...' : 'say anything!'" autofocus [(ngModel)]="input" [disabled]="!connectedToAgent"/>
         <input type="submit" id="submitmsg" value="Send" (click)="onSubmit()" [disabled]="!connectedToAgent" />
     </form>

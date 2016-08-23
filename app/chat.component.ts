@@ -24,12 +24,17 @@ export class ChatComponent implements OnInit {
 
     messages: Message[] = [];
     input = "";
+    membersTyping: string;
+    chatStarted: boolean;
 
     constructor(private chatService: ChatService) {
     }
 
     ngOnInit() {
+    }
 
+    startChat() {
+        this.chatStarted = true;
         this.print('Logged in as "' + this.username + '" ...');
 
         this.chatService.getMessagingClient().then(() => {
@@ -62,8 +67,6 @@ export class ChatComponent implements OnInit {
         });
 
     }
-
-    membersTyping: string;
 
     updateTypingIndicator(display: boolean, member?) {
         if (display) {
