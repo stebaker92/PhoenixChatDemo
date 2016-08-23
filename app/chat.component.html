@@ -1,0 +1,21 @@
+<div id="wrapper">
+    <div id="menu">
+        <p class="welcome">Welcome, <b>{{username}}</b></p>
+        <p *ngIf="!connectedToAgent">Connecting to agent...</p>
+        <!--<p class="logout"><a id="exit" href="#">Exit Chat</a></p>-->
+        <div style="clear:both"></div>
+    </div>
+
+    <div id="messages">
+        <div *ngFor="let msg of messages">
+            <message [message]="msg"></message>
+        </div>
+    </div>
+    <div style="padding-left: 15px; top:-8px; position: relative;">
+        <span [hidden]="!membersTyping">{{membersTyping}} is typing ... </span>
+    </div>
+    <form name="message">
+        <input id="chat-input" type="text" [placeholder]="!connectedToAgent ? 'Connecting to agent...' : 'say anything!'" autofocus [(ngModel)]="input" [disabled]="!connectedToAgent"/>
+        <input type="submit" id="submitmsg" value="Send" (click)="onSubmit()" [disabled]="!connectedToAgent" />
+    </form>
+</div>
