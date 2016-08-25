@@ -41,7 +41,7 @@ export class ChatComponent implements OnInit {
 
             this.chatService.createTask(this.username, this.car).then(()=> {
                 console.log("watching channel for events");
-
+                this.connectedToAgent = true;
                 this.chatService.currentChannel.on("typingStarted", (member) => {
                     this.updateTypingIndicator(true, member);
                 });
