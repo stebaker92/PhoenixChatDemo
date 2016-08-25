@@ -7,8 +7,6 @@ export class ChatService {
     //typescript hack for jQuery // todo install jquery.d.ts (currently won't install)
     $: any;
 
-    username: string;
-
     // Manages the state of our access token we got from the server
     accessManager;
 
@@ -19,13 +17,11 @@ export class ChatService {
     // will have in this sample app
     currentChannel;
 
-    apiUrl = "http://localhost:49365/token/"; //?identity=ste&device=mobile"
+    //apiUrl = "http://localhost:49365/token/"; //?identity=ste&device=mobile"
+    apiUrl = "http://localhost:5000/auth/customer/10000"; //?identity=ste&device=mobile"
     taskRouterUrl = "https://fcbe0bc8.ngrok.io/tasks/";
 
     constructor(private http: Http) {
-
-        //TODO inject userService
-        this.username = "stephen.baker";
     }
 
     getMessagingClient() {
@@ -41,11 +37,13 @@ export class ChatService {
     }
 
     getAccessToken() {
-        let tokenUrl = this.apiUrl + "?identity=" + this.username + "&device=browser";
-        return this.http.get(tokenUrl)
+        //let tokenUrl = this.apiUrl + "?identity=" + this.username + "&device=browser";
+        return this.http.post(this.apiUrl, {})
             .toPromise()
             .then((response) => {
-                return response.json().token;
+                //return response.json().token;
+                console.log(response);
+                return response.text();
             })
             .catch((error)=> {
                 console.error("Error getting token");
@@ -55,7 +53,9 @@ export class ChatService {
     }
 
     createTask(user, car) {
-        return this.joinChannel(user).then(() => {
+
+        //return this.joinChannel(user).then(() => {
+        return this.joinChannel("TestChannel").then(() => {
             var model = {
                 attributes: '{"customer_location": "car-search", "car_name": "' + car.name + '", "username": "' + user + '"}',
                 workflowSid: "WW9bdbf175bd2a6133c63caf4145315acc",
@@ -74,7 +74,7 @@ export class ChatService {
     }
 
     joinChannel(channelName) {
-        console.log('Attempting to join "' + this.username + '" chat channel...');
+        console.log('Attempting to join "' + channelName + '" chat channel...');
         // Get the custom chat channel
         var promise = this.messagingClient.getChannelByUniqueName(channelName);
         return promise.then((channel) => {
