@@ -20,7 +20,7 @@ export class ChatComponent implements OnInit {
 
     connectedToAgent = false;
     @Input() car: Car;
-    username = this.chatService.customerId;
+    customerId = this.chatService.customerId;
 
     messages: Message[] = [];
     input = "";
@@ -35,11 +35,12 @@ export class ChatComponent implements OnInit {
 
     startChat() {
         this.chatStarted = true;
-        this.print('Logged in as "' + this.username + '" ...');
+        this.print('Logged in as "' + this.customerId + '" ...');
 
         this.chatService.getMessagingClient().then(() => {
+            console.log("attempting to join channel");
 
-            this.chatService.createTask(this.username, this.car).then(()=> {
+            this.chatService.joinThenCreateTask(this.customerId, this.car).then(() => {
                 console.log("watching channel for events");
                 this.connectedToAgent = true;
                 this.chatService.currentChannel.on("typingStarted", (member) => {
@@ -82,7 +83,7 @@ export class ChatComponent implements OnInit {
 
     onSubmit() {
         console.log("on submit called");
-        this.chatService.currentChannel.sendMessage(this.input);
+        this.chatService.currentChannel.sendMessage(this.input, {CustomerId: this.customerId});
         this.input = "";
     }
 
@@ -94,7 +95,7 @@ export class ChatComponent implements OnInit {
     }
 
     printMessage(message: Message) {
-        message.isMe = message.author === this.username;
+        message.isMe = message.author === this.customerId;
         this.messages.push(message);
     }
 }

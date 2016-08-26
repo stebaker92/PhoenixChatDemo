@@ -57,7 +57,7 @@ export class ChatService {
             ;
     }
 
-    createTask(user, car) {
+    joinThenCreateTask(user, car) {
 
         //return this.joinChannel(user).then(() => {
         return this.joinChannel(this.channelName).then(() => {
