@@ -17,8 +17,13 @@ export class ChatService {
     // will have in this sample app
     currentChannel;
 
-    //apiUrl = "http://localhost:49365/token/"; //?identity=ste&device=mobile"
-    apiUrl = "http://localhost:5000/auth/customer/10000"; //?identity=ste&device=mobile"
+
+    // CONFIG
+    customerId = "10000";
+    channelName = "TestChannel";
+    // END CONFIG
+
+    apiUrl = "http://localhost:5000/auth/customer/" + this.customerId; //?identity=ste&device=mobile"
     taskRouterUrl = "https://fcbe0bc8.ngrok.io/tasks/";
 
     constructor(private http: Http) {
@@ -55,7 +60,7 @@ export class ChatService {
     createTask(user, car) {
 
         //return this.joinChannel(user).then(() => {
-        return this.joinChannel("TestChannel").then(() => {
+        return this.joinChannel(this.channelName).then(() => {
             var model = {
                 attributes: '{"customer_location": "car-search", "car_name": "' + car.name + '", "username": "' + user + '"}',
                 workflowSid: "WW9bdbf175bd2a6133c63caf4145315acc",

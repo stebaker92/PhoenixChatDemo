@@ -20,7 +20,7 @@ export class ChatComponent implements OnInit {
 
     connectedToAgent = false;
     @Input() car: Car;
-    username = this.chatService.username;
+    username = this.chatService.customerId;
 
     messages: Message[] = [];
     input = "";
@@ -46,7 +46,7 @@ export class ChatComponent implements OnInit {
                     this.updateTypingIndicator(true, member);
                 });
 
-                this.chatService.currentChannel.on("typingEnded", (member) => {
+                this.chatService.currentChannel.on("typingEnded", () => {
                     this.updateTypingIndicator(false);
                 });
 
