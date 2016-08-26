@@ -1,44 +1,50 @@
 /* CSS Document */
 body {
-    font:12px arial;
+    font: 12px arial;
     color: #222;
-    text-align:center;
-    padding:35px; }
-
-form, p, span {
-    margin:0;
-    padding:0; }
-
-input { font:12px arial; }
-
-a {
-    color:#0000FF;
-    text-decoration:none;
+    text-align: center;
+    padding: 35px;
 }
 
-a:hover { text-decoration:underline; }
+form, p, span {
+    margin: 0;
+    padding: 0;
+}
 
-#wrapper{
-    margin-left: 80%;
+input {
+    font: 12px arial;
+}
+
+a {
+    color: #0000FF;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+#wrapper {
+    right: 20px;
     position: absolute;
     bottom: 0;
     /*margin:0 auto;*/
-    padding-bottom:25px;
-    background:#EBF4FB;
-    width:300px;
-    border:1px solid #ACD8F0;
+    padding-bottom: 25px;
+    background: #EBF4FB;
+    width: 300px;
+    border: 1px solid #ACD8F0;
 }
 
 #messages {
-    text-align:left;
-    margin:0 auto;
+    text-align: left;
+    margin: 0 auto;
     margin-bottom: 20px;
     padding: 10px;
     background: #fff;
     height: 270px;
     width: 250px;
-    border:1px solid #ACD8F0;
-    overflow:auto;
+    border: 1px solid #ACD8F0;
+    overflow: auto;
 }
 
 #chat-input {
@@ -49,21 +55,33 @@ a:hover { text-decoration:underline; }
     border: 1px solid #ACD8F0;
 }
 
-#submitmsg { height:20px; }
+#submitmsg {
+    height: 20px;
+}
 
-.error { color: #ff0000; }
+.error {
+    color: #ff0000;
+}
 
-#menu { padding:12.5px 25px 12.5px 25px; }
+#menu {
+    padding: 12.5px 25px 12.5px 25px;
+}
 
-.welcome { float:left; }
+.welcome {
+    float: left;
+}
 
-.logout { float:right; }
+.logout {
+    float: right;
+}
 
-.msgln { margin:0 0 2px 0; }
+.msgln {
+    margin: 0 0 2px 0;
+}
 
 .message.info {
     color: #aaaaaa;
-    font-style:italic;
+    font-style: italic;
 }
 
 .me, .username.me {
@@ -72,6 +90,6 @@ a:hover { text-decoration:underline; }
 }
 
 .messages .username.me {
-    display:inline-block;
-    margin-right:5px;
+    display: inline-block;
+    margin-right: 5px;
 }
