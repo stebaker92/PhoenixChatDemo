@@ -13,7 +13,7 @@ import {MessageComponent} from "./message.component";
 
 export class ChatComponent implements OnInit {
 
-    // //typescript hack for jQuery // todo install jquery.d.ts (currently won't install)
+    // //typescript hack for jQuery // installing jquery.d.ts fails
     // $(s: any) {
     //     return (<any>window).$(s);
     // }
@@ -35,10 +35,11 @@ export class ChatComponent implements OnInit {
 
     startChat() {
         this.chatStarted = true;
-        this.print('Logged in as "' + this.customerId + '" ...');
 
         this.chatService.getMessagingClient().then(() => {
             console.log("attempting to join channel");
+
+            this.print('Logged in as customer: "' + this.customerId + '" ...');
 
             this.chatService.joinThenCreateTask(this.customerId, this.car).then(() => {
                 console.log("watching channel for events");
@@ -77,7 +78,7 @@ export class ChatComponent implements OnInit {
         }
     }
 
-    onKeyPress(keyCode) {
+    onKeyPress() {
         this.chatService.currentChannel.typing();
     }
 
@@ -96,6 +97,7 @@ export class ChatComponent implements OnInit {
 
     printMessage(message: Message) {
         message.isMe = message.author === this.customerId;
+        message.displayName = message.author.split(":")[2].replace("_", " ");
         this.messages.push(message);
     }
 }

@@ -1,2 +1,2 @@
-<span class="username" [ngClass]="{me: message.isMe, info: message.isInfo}" *ngIf="!message.isInfo" >{{message.author}}:</span>
-<span class="message" [ngClass]="{info: message.isInfo}">{{message.body}}</span>
+<span class="username" [ngClass]="{me: message.isMe, info: message.isInfo}" *ngIf="!message.isInfo"> {{message.displayName}}: </span>
+<span class="message" [ngClass]="{info: message.isInfo}"> {{message.body}} </span>
