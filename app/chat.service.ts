@@ -23,7 +23,7 @@ export class ChatService {
     channelName = "TestChannel";
     // END CONFIG
 
-    apiUrl = "http://localhost:5000/auth/customer/" + this.customerId; //?identity=ste&device=mobile"
+    apiUrl = "http://localhost:5000/auth/customer/"; //?identity=ste&device=mobile"
     taskRouterUrl = "https://fcbe0bc8.ngrok.io/tasks/";
 
     constructor(private http: Http) {
@@ -42,19 +42,27 @@ export class ChatService {
     }
 
     getAccessToken() {
-        //let tokenUrl = this.apiUrl + "?identity=" + this.username + "&device=browser";
-        return this.http.post(this.apiUrl, {})
-            .toPromise()
-            .then((response) => {
-                //return response.json().token;
-                console.log(response);
-                return response.text();
-            })
-            .catch((error)=> {
-                console.error("Error getting token");
-                console.error(error);
-            })
-            ;
+
+        let credentials = {userName: "stephen.baker@carfinance247.co.uk", password: "TEMP"};
+        return this.http.post("http://localhost:54180/authorization/customer/acquire-token/", credentials).toPromise().then((response)=> {
+            console.log("got response from auth api");
+            console.log(response);
+
+            let headers = new Headers();
+            headers.append("Authorization", response.text());
+            return this.http.post(this.apiUrl, null, {headers: headers})
+                .toPromise()
+                .then((response) => {
+                    //return response.json().token;
+                    console.log(response);
+                    return response.text();
+                })
+                .catch((error)=> {
+                    console.error("Error getting token");
+                    console.error(error);
+                })
+                ;
+        });
     }
 
     joinThenCreateTask(user, car) {
