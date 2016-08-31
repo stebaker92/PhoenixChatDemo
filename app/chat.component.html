@@ -1,8 +1,8 @@
 <div id="wrapper">
     <div id="menu">
-        <p class="welcome">Welcome customer: <b>{{customerId}}</b></p>
+        <p class="welcome">CustomerId: <b>{{customerId}}</b></p>
         <br>
-        <p *ngIf="!connectedToAgent">Connecting to agent...</p>
+        <p *ngIf="!connectedToAgent && chatStarted">Connecting to agent...</p>
         <!--<p class="logout"><a id="exit" href="#">Exit Chat</a></p>-->
         <div style="clear:both"></div>
     </div>

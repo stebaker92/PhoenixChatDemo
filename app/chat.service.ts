@@ -18,46 +18,49 @@ export class ChatService {
 
 
     // CONFIG
-    customerId = "707763";
-    channelName = "TestChannel:10000"; // + customerId
+    customerId = "1059608"; //Tom Mac - should get this from token //"707763";
+    channelName = "TestChannel:" + this.customerId;
+    customerEmail = "tommax2008@hotmail.co.uk"; //stephen.baker@carfinance247.co.uk
+    customerPassword = "TEMP";
     // END CONFIG
 
 
-    apiUrl = "http://localhost:5000/auth/customer/"; //?identity=ste&device=mobile"
-    taskRouterUrl = "https://fcbe0bc8.ngrok.io/tasks/";
+    contactCentreApiUrl = "http://localhost:6605/auth/customer/";
+    authApiUrl = "http://localhost:54180/authorization/customer/acquire-token/"; // VS
+    //taskRouterUrl = "https://fcbe0bc8.ngrok.io/tasks/";
 
     constructor(private http: Http) {
     }
 
     getMessagingClient() {
-        return this.getAccessToken().then((token: any) => {
-            console.log("creating Twilio manager with token : ");
-            console.log(token);
+        return this.getAccessTokens().then((twilioToken: any) => {
+            console.log("creating Twilio manager");
 
-            this.accessManager = new (<any>window).Twilio.AccessManager(token);
+            this.accessManager = new (<any>window).Twilio.AccessManager(twilioToken);
             this.messagingClient = new (<any>window).Twilio.IPMessaging.Client(this.accessManager);
+
             console.log("created Twilio manager");
             return this.messagingClient;
         });
     }
 
-    getAccessToken() {
+    getAccessTokens() {
 
-        let credentials = {userName: "stephen.baker@carfinance247.co.uk", password: "TEMP"};
-        return this.http.post("http://localhost:54180/authorization/customer/acquire-token/", credentials).toPromise().then((response)=> {
+        let credentials = {userName: this.customerEmail, password: this.customerPassword};
+        return this.http.post(this.authApiUrl, credentials).toPromise().then((response) => {
             console.log("got customer token from AuthApi");
             console.log(response);
 
             let headers = new Headers();
             headers.append("Authorization", response.text());
-            return this.http.post(this.apiUrl, null, {headers: headers})
+            return this.http.post(this.contactCentreApiUrl, null, {headers: headers})
                 .toPromise()
                 .then((response) => {
                     //return response.json().token;
                     console.log(response);
                     return response.text();
                 })
-                .catch((error)=> {
+                .catch((error) => {
                     console.error("Error getting customerTwilioToken");
                     console.error(error);
                 })
@@ -74,10 +77,12 @@ export class ChatService {
                 workflowSid: "WW9bdbf175bd2a6133c63caf4145315acc",
             };
             return new Promise((resolve)=> {
-                setTimeout(()=> {
+                setTimeout(() => {
                     resolve();
                 }, 1000);
             });
+
+            //TODO create a task
             // let headers = new Headers({'Content-Type': 'application/json'});
             // let options = new RequestOptions({headers: headers});
 
@@ -100,17 +105,13 @@ export class ChatService {
                 }).then((channel) => {
                     console.log('Created "' + channelName + '" channel:');
                     this.currentChannel = channel;
-                    this.setupChannel();
+                    return this.currentChannel.join();
                 });
             } else {
-                console.log('Joined existing channel');
-                this.setupChannel();
+                console.log('Joining existing channel');
+                return this.currentChannel.join();
             }
         });
-    }
-
-    setupChannel() {
-        return this.currentChannel.join();
     }
 
 }

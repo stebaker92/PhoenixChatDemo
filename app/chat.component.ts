@@ -18,13 +18,21 @@ export class ChatComponent implements OnInit {
     //     return (<any>window).$(s);
     // }
 
+    // True when connected to the chat channel
     connectedToAgent = false;
+
+    // Test context
     @Input() car: Car;
+
     customerId = this.chatService.customerId;
 
     messages: Message[] = [];
+
     input = "";
+
     membersTyping: string;
+
+    //start chat button clicked
     chatStarted: boolean;
 
     constructor(private chatService: ChatService) {
