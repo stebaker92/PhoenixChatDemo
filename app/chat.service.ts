@@ -13,15 +13,15 @@ export class ChatService {
     // Our interface to the IP Messaging service
     messagingClient;
 
-    // A handle to the "general" chat channel - the one and only channel we
-    // will have in this sample app
+    // A handle to the customers chat channel - the one and only channel we need in this sample app
     currentChannel;
 
 
     // CONFIG
-    customerId = "10000";
-    channelName = "TestChannel";
+    customerId = "707763";
+    channelName = "TestChannel:10000"; // + customerId
     // END CONFIG
+
 
     apiUrl = "http://localhost:5000/auth/customer/"; //?identity=ste&device=mobile"
     taskRouterUrl = "https://fcbe0bc8.ngrok.io/tasks/";
@@ -45,7 +45,7 @@ export class ChatService {
 
         let credentials = {userName: "stephen.baker@carfinance247.co.uk", password: "TEMP"};
         return this.http.post("http://localhost:54180/authorization/customer/acquire-token/", credentials).toPromise().then((response)=> {
-            console.log("got response from auth api");
+            console.log("got customer token from AuthApi");
             console.log(response);
 
             let headers = new Headers();
@@ -58,7 +58,7 @@ export class ChatService {
                     return response.text();
                 })
                 .catch((error)=> {
-                    console.error("Error getting token");
+                    console.error("Error getting customerTwilioToken");
                     console.error(error);
                 })
                 ;
