@@ -39,7 +39,7 @@ export class ChatComponent implements OnInit {
         this.chatService.getMessagingClient().then(() => {
             console.log("attempting to join channel");
 
-            this.print('Logged in as customer: "' + this.customerId + '" ...');
+            this.print('Logged in with customerId: "' + this.customerId + '" ...');
 
             this.chatService.joinThenCreateTask(this.customerId, this.car).then(() => {
                 console.log("watching channel for events");
@@ -96,6 +96,11 @@ export class ChatComponent implements OnInit {
     }
 
     printMessage(message: Message) {
+
+        if(message.attributes.isSms){
+            return;
+        }
+
         message.isMe = message.author === this.customerId;
         message.displayName = message.author.split(":")[2].replace("_", " ");
         this.messages.push(message);
