@@ -44,6 +44,8 @@ export class ChatComponent implements OnInit {
     startChat() {
         this.chatStarted = true;
 
+        //todo create task
+
         this.chatService.getMessagingClient().then(() => {
             console.log("attempting to join channel");
 

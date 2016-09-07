@@ -5,7 +5,7 @@ import {Http, RequestOptions, Headers} from "@angular/http";
 export class ChatService {
 
     //typescript hack for jQuery // todo install jquery.d.ts (currently won't install)
-    $: any;
+    //$: any;
 
     // Manages the state of our access token we got from the server
     accessManager;
@@ -18,15 +18,15 @@ export class ChatService {
 
 
     // CONFIG
-    customerId = "1059608"; //Tom Mac - should get this from token //"707763";
+    customerId = "1059608"; // 'Test Customer'
     channelName = "TestChannel:" + this.customerId;
-    customerEmail = "tommax2008@hotmail.co.uk"; //stephen.baker@carfinance247.co.uk
+    customerEmail = "stephen.baker@carfinance247.co.uk";
     customerPassword = "TEMP";
     // END CONFIG
 
 
     contactCentreApiUrl = "http://localhost:6605/auth/customer/";
-    authApiUrl = "http://localhost:54180/authorization/customer/acquire-token/"; // VS
+    authApiUrl = "http://localhost:6606/authorization/customer/acquire-token/"; // VS
     //taskRouterUrl = "https://fcbe0bc8.ngrok.io/tasks/";
 
     constructor(private http: Http) {
