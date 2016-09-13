@@ -3,6 +3,7 @@ import {ChatService} from "./chat.service";
 import {Car} from "./car";
 import {Message} from "./message"
 import {MessageComponent} from "./message.component";
+import {Member} from "./member";
 
 @Component({
     selector: 'chat',
@@ -49,7 +50,7 @@ export class ChatComponent implements OnInit {
         this.chatService.getMessagingClient().then(() => {
             console.log("attempting to join channel");
 
-            this.print('Logged in with customerId: "' + this.customerId + '" ...');
+            this.print('Logged in with customerId: "' + this.customerId);
 
             this.chatService.joinThenCreateTask(this.customerId, this.car).then(() => {
                 console.log("watching channel for events");
@@ -68,16 +69,19 @@ export class ChatComponent implements OnInit {
                     this.printMessage(message);
                 });
 
-                this.chatService.currentChannel.on("memberJoined", (member) => {
+                this.chatService.currentChannel.on("memberJoined", (member: Member) => {
                     this.connectedToAgent = true;
-                    this.print("You are now connected to '" + member.identity + "' ");
+                    this.print("You are now connected to '" + member.userInfo.identity + "' ");
 
                     console.log("member joined", member);
                     console.log("context is: ", this.car.id, this.car.name);
                 });
+
+                this.chatService.currentChannel.on("memberLeft", (member: Member) => {
+                    this.print("'" + member.userInfo.identity + "' has left the chat");
+                });
             });
         });
-
     }
 
     updateTypingIndicator(display: boolean, member?) {
@@ -107,7 +111,7 @@ export class ChatComponent implements OnInit {
 
     printMessage(message: Message) {
 
-        if(message.attributes.isSms){
+        if (message.attributes.isSms) {
             return;
         }
 

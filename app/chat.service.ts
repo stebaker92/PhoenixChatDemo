@@ -1,5 +1,5 @@
-import {Injectable} from '@angular/core'
-import {Http, RequestOptions, Headers} from "@angular/http";
+import {Injectable} from "@angular/core";
+import {Http, Headers} from "@angular/http";
 
 @Injectable()
 export class ChatService {
@@ -19,7 +19,7 @@ export class ChatService {
 
     // CONFIG
     customerId = "1059608"; // 'Test Customer'
-    channelName = "TestChannel:" + this.customerId;
+    channelName = "customer:" + this.customerId;
     customerEmail = "stephen.baker@carfinance247.co.uk";
     customerPassword = "TEMP";
     // END CONFIG
@@ -91,7 +91,7 @@ export class ChatService {
         });
     }
 
-    joinChannel(channelName) {
+    joinChannel(channelName: string) {
         console.log('Attempting to join "' + channelName + '" chat channel...');
         // Get the custom chat channel
         var promise = this.messagingClient.getChannelByUniqueName(channelName);
