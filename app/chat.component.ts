@@ -98,7 +98,7 @@ export class ChatComponent implements OnInit {
 
     onSubmit() {
         console.log("on submit called");
-        this.chatService.currentChannel.sendMessage(this.input, {CustomerId: this.customerId});
+        this.chatService.currentChannel.sendMessage(this.input, {CustomerId: this.customerId, MessageTypeId: 0});
         this.input = "";
     }
 
