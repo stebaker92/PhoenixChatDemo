@@ -40,6 +40,7 @@ export class ChatComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.chatService.connectToSync();
     }
 
     startChat() {
@@ -47,39 +48,37 @@ export class ChatComponent implements OnInit {
 
         //todo create task
 
-        this.chatService.getMessagingClient().then(() => {
-            console.log("attempting to join channel");
+        console.log("attempting to join channel");
 
-            this.print('Logged in with customerId: "' + this.customerId);
+        this.print('Logged in with customerId: "' + this.customerId);
 
-            this.chatService.joinThenCreateTask(this.customerId, this.car).then(() => {
-                console.log("watching channel for events");
+        this.chatService.joinThenCreateTask(this.customerId, this.car).then(() => {
+            console.log("watching channel for events");
+            this.connectedToAgent = true;
+            this.chatService.currentChannel.on("typingStarted", (member) => {
+                this.updateTypingIndicator(true, member);
+            });
+
+            this.chatService.currentChannel.on("typingEnded", () => {
+                this.updateTypingIndicator(false);
+            });
+
+            this.chatService.currentChannel.on("messageAdded", (message: Message)=> {
                 this.connectedToAgent = true;
-                this.chatService.currentChannel.on("typingStarted", (member) => {
-                    this.updateTypingIndicator(true, member);
-                });
+                console.log("message received", message.body);
+                this.printMessage(message);
+            });
 
-                this.chatService.currentChannel.on("typingEnded", () => {
-                    this.updateTypingIndicator(false);
-                });
+            this.chatService.currentChannel.on("memberJoined", (member: Member) => {
+                this.connectedToAgent = true;
+                this.print("You are now connected to '" + member.userInfo.identity + "' ");
 
-                this.chatService.currentChannel.on("messageAdded", (message: Message)=> {
-                    this.connectedToAgent = true;
-                    console.log("message received", message.body);
-                    this.printMessage(message);
-                });
+                console.log("member joined", member);
+                console.log("context is: ", this.car.id, this.car.name);
+            });
 
-                this.chatService.currentChannel.on("memberJoined", (member: Member) => {
-                    this.connectedToAgent = true;
-                    this.print("You are now connected to '" + member.userInfo.identity + "' ");
-
-                    console.log("member joined", member);
-                    console.log("context is: ", this.car.id, this.car.name);
-                });
-
-                this.chatService.currentChannel.on("memberLeft", (member: Member) => {
-                    this.print("'" + member.userInfo.identity + "' has left the chat");
-                });
+            this.chatService.currentChannel.on("memberLeft", (member: Member) => {
+                this.print("'" + member.userInfo.identity + "' has left the chat");
             });
         });
     }

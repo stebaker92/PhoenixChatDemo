@@ -10,12 +10,14 @@ export class ChatService {
     // Manages the state of our access token we got from the server
     accessManager;
 
-    // Our interface to the IP Messaging service
+    // Our interface to the Twilio IP Messaging service
     messagingClient;
 
     // A handle to the customers chat channel - the one and only channel we need in this sample app
     currentChannel;
 
+    // Our interface to the Twilio Sync service
+    syncClient;
 
     // CONFIG
     customerId = "1059608"; // 'Test Customer'
@@ -30,18 +32,26 @@ export class ChatService {
     //taskRouterUrl = "https://fcbe0bc8.ngrok.io/tasks/";
 
     constructor(private http: Http) {
-    }
-
-    getMessagingClient() {
-        return this.getAccessTokens().then((twilioToken: any) => {
+        this.getAccessTokens().then((twilioToken: any) => {
             console.log("creating Twilio manager");
 
             this.accessManager = new (<any>window).Twilio.AccessManager(twilioToken);
             this.messagingClient = new (<any>window).Twilio.IPMessaging.Client(this.accessManager);
+            this.syncClient = new (<any>window).Twilio.Sync.Client(this.accessManager);
 
             console.log("created Twilio manager");
-            return this.messagingClient;
         });
+    }
+
+    connectToSync() {
+        return this.getAccessTokens().then((twilioToken: any) => {
+            console.log("creating sync client");
+            this.syncClient = new (<any>window).Twilio.Sync.Client(this.accessManager);
+        });
+    }
+
+    getMessagingClient() {
+        return this.messagingClient;
     }
 
     getAccessTokens() {
