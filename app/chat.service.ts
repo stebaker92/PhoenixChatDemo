@@ -117,4 +117,24 @@ export class ChatService {
         });
     }
 
+    sendFile(file: File) {
+        var data = {};
+        let formData = new FormData();
+        formData.append("file", file, file.name);
+
+        this.http.post("http://localhost:60646/documents", formData).toPromise().then((response: any)=> {
+            var documentId = response.json();
+
+            var documentAttributes = {
+                documentId: documentId,
+                filename: file.name
+            };
+            this.currentChannel.sendMessage(JSON.stringify(documentAttributes), {
+                CustomerId: this.customerId,
+                MessageTypeId: 2 // DOCUMENT
+            });
+
+            return documentId;
+        });
+    }
 }

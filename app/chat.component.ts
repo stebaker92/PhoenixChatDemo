@@ -82,6 +82,20 @@ export class ChatComponent implements OnInit {
         });
     }
 
+
+    sendDocument(event) {
+        console.log("sendDoc called");
+
+        var files = event.srcElement.files;
+        if (!files) {
+            return;
+        }
+
+        console.log(files);
+
+        this.chatService.sendFile(files[0]);
+    }
+
     updateTypingIndicator(display: boolean, member?) {
         if (display) {
             this.membersTyping = member.userInfo.identity;
@@ -109,11 +123,18 @@ export class ChatComponent implements OnInit {
 
     printMessage(message: Message) {
 
-        if (message.attributes.isSms) {
+        var senderId = message.author.split(":")[1];
+
+        if (message.attributes.MessageTypeId === 1) { // SMS
             return;
         }
+        else if (message.attributes.MessageTypeId === 2) { // DOCUMENT
+            message.filename = JSON.parse(message.body).filename;
+            message.documentId = JSON.parse(message.body).documentId;
+            message.isDocument = true;
+        }
 
-        message.isMe = message.author === this.customerId;
+        message.isMe = senderId === this.customerId;
         message.displayName = message.author.split(":")[2].replace("_", " ");
         this.messages.push(message);
     }

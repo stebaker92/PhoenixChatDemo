@@ -1,2 +1,9 @@
 <span class="username" [ngClass]="{me: message.isMe, info: message.isInfo}" *ngIf="!message.isInfo"> {{message.displayName}}: </span>
-<span class="message" [ngClass]="{info: message.isInfo}"> {{message.body}} </span>
+<span class="message" [ngClass]="{info: message.isInfo}" *ngIf="!message.isDocument"> {{message.body}} </span>
+<span class="message" [ngClass]="{info: message.isInfo}" *ngIf="message.isDocument">
+
+    <a (click)="download(message.documentId)">
+        {{message.filename}}
+    </a>
+    <span class="glyphicon glyphicon-file"></span>
+</span>
