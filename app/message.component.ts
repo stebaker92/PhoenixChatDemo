@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core'
 import {Message} from './message'
 import {NgClass} from "@angular/common";
+import {FileService} from "./file-service";
 
 @Component({
     selector: 'message',
@@ -11,7 +12,13 @@ import {NgClass} from "@angular/common";
 export class MessageComponent implements OnInit {
     @Input() message: Message;
 
-    ngOnInit(){
+    constructor(private fileService: FileService) {
+    }
 
+    ngOnInit() {
+    }
+
+    download(documentId: number) {
+        this.fileService.download(documentId, this.message.filename);
     }
 }

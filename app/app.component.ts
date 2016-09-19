@@ -3,6 +3,7 @@ import { ROUTER_DIRECTIVES }  from '@angular/router';
 import { CarService }        from './car.service';
 import { ChatService }        from './chat.service';
 import './rxjs-extensions';
+import {FileService} from "./file-service";
 @Component({
     selector: 'my-app',
     template: `
@@ -16,7 +17,7 @@ import './rxjs-extensions';
     styleUrls: ['app/app.component.css'],
     directives: [ROUTER_DIRECTIVES],
     providers: [
-        CarService, ChatService
+        CarService, ChatService, FileService
     ]
 })
 export class AppComponent {
