@@ -43,13 +43,6 @@ export class ChatService {
         });
     }
 
-    connectToSync() {
-        return this.getAccessTokens().then((twilioToken: any) => {
-            console.log("creating sync client");
-            this.syncClient = new (<any>window).Twilio.Sync.Client(this.accessManager);
-        });
-    }
-
     getMessagingClient() {
         return this.messagingClient;
     }

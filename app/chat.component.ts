@@ -40,7 +40,6 @@ export class ChatComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.chatService.connectToSync();
     }
 
     startChat() {
