@@ -84,13 +84,6 @@ export class ChatService {
                     resolve();
                 }, 1000);
             });
-
-            //TODO create a task
-            // let headers = new Headers({'Content-Type': 'application/json'});
-            // let options = new RequestOptions({headers: headers});
-
-            //return this.http.post("http://localhost:49365/token", JSON.stringify(model), options).toPromise();
-            //return this.http.post(this.taskRouterUrl, JSON.stringify(model), options).toPromise();
         });
     }
 

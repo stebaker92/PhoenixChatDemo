@@ -1,7 +1,7 @@
 export class Message {
     author: string;
     body: string;
-    attributes: {MessageTypeId: number, CustomerId: number};
+    attributes: MessageAttributes;
 
     isMe: boolean;
     isInfo: boolean;
@@ -13,4 +13,10 @@ export class Message {
     filename: string;
     documentId: number;
     isDocument: boolean;
+}
+
+export class MessageAttributes {
+    messageTypeId: string;
+    customerId: number;
+    from: string;
 }
