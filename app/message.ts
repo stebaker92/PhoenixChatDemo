@@ -16,6 +16,6 @@ export class Message {
 }
 
 export class MessageAttributes {
-    messageTypeId: string;
+    messageTypeId: number;
     customerId: string;
 }
