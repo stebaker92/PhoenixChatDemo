@@ -1,7 +1,7 @@
 import {Component, OnInit, Input} from '@angular/core'
 import {ChatService} from "./chat.service";
 import {Car} from "./car";
-import {Message} from "./message"
+import {Message, MessageAttributes} from "./message"
 import {MessageComponent} from "./message.component";
 import {Member} from "./member";
 
@@ -110,7 +110,11 @@ export class ChatComponent implements OnInit {
 
     onSubmit() {
         console.log("on submit called");
-        this.chatService.currentChannel.sendMessage(this.input, {CustomerId: this.customerId, MessageTypeId: 0});
+        var attributes: MessageAttributes = {
+            customerId: this.customerId,
+            messageTypeId: 0
+        };
+        this.chatService.currentChannel.sendMessage(this.input, attributes);
         this.input = "";
     }
 
@@ -125,10 +129,10 @@ export class ChatComponent implements OnInit {
 
         var senderId = message.author.split(":")[1];
 
-        if (message.attributes.MessageTypeId === 1) { // SMS
+        if (message.attributes.messageTypeId === 1) { // SMS
             return;
         }
-        else if (message.attributes.MessageTypeId === 2) { // DOCUMENT
+        else if (message.attributes.messageTypeId === 2) { // DOCUMENT
             message.filename = JSON.parse(message.body).filename;
             message.documentId = JSON.parse(message.body).documentId;
             message.isDocument = true;
