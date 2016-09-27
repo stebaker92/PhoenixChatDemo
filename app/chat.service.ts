@@ -39,6 +39,13 @@ export class ChatService {
             this.messagingClient = new (<any>window).Twilio.IPMessaging.Client(this.accessManager);
             this.syncClient = new (<any>window).Twilio.Sync.Client(this.accessManager);
 
+
+            this.syncClient.document('Customer:'+this.customerId).then(function(document) {
+                document.update({
+                    context: 'Viewing Corsa 2013'
+                });
+            });
+
             console.log("created Twilio manager");
         });
     }
