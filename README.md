@@ -4,6 +4,7 @@ Some crappy incomplete ip messaging chat demo for Phoenix, which will show Ip Me
 ## Setup
 Just clone the repo, and open index.html with WebStorm (index.html => "open in browser") 
 
+```Phoenix
 
  $$$$$$$\  $$\   $$\  $$$$$$\  $$$$$$$$\ $$\   $$\ $$$$$$\ $$\   $$\ 		
  $$  __$$\ $$ |  $$ |$$  __$$\ $$  _____|$$$\  $$ |\_$$  _|$$ |  $$ |		
