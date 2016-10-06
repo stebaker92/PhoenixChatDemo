@@ -1,8 +1,10 @@
-import { Component, EventEmitter, Input, OnInit, OnDestroy, Output } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Car }        from './car';
-import { CarService } from './car.service';
+import {Component, EventEmitter, Input, OnInit, OnDestroy, Output} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {Car}        from './car';
+import {CarService} from './car.service';
 import {ChatComponent} from "./chat.component";
+import {SyncService} from "./sync.service";
+
 @Component({
     selector: 'my-car-detail',
     templateUrl: 'app/car-detail.component.html',
@@ -14,27 +16,35 @@ export class CarDetailComponent implements OnInit, OnDestroy {
     error: any;
     sub: any;
     navigated = false; // true if navigated here
-    constructor(
-        private carService: CarService,
-        private route: ActivatedRoute) {
+    constructor(private carService: CarService,
+                private route: ActivatedRoute,
+                private syncService: SyncService) {
     }
+
     ngOnInit() {
         this.sub = this.route.params.subscribe(params => {
             if (params['id'] !== undefined) {
                 let id = +params['id'];
                 this.navigated = true;
                 this.carService.getCar(id)
-                    .then(car => this.car = car);
+                    .then(car => {
+                        this.car = car;
+                        this.syncService.updateContext(car.name);
+                    });
             } else {
                 this.navigated = false;
                 this.car = new Car();
             }
         });
     }
+
     ngOnDestroy() {
         this.sub.unsubscribe();
     }
+
     goBack() {
-        if (this.navigated) { window.history.back(); }
+        if (this.navigated) {
+            window.history.back();
+        }
     }
 }

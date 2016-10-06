@@ -5,6 +5,7 @@ import {ChatService}        from './chat.service';
 import './rxjs-extensions';
 import {FileService} from "./file-service";
 import {UserService} from "./user.service";
+import {SyncService} from "./sync.service";
 @Component({
     selector: 'my-app',
     template: `
@@ -18,7 +19,7 @@ import {UserService} from "./user.service";
     styleUrls: ['app/app.component.css'],
     directives: [ROUTER_DIRECTIVES],
     providers: [
-        CarService, ChatService, FileService, UserService
+        CarService, ChatService, FileService, UserService, SyncService
     ]
 })
 export class AppComponent {

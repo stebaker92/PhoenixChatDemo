@@ -12,7 +12,7 @@ import {Member} from "./member";
     directives: [MessageComponent]
 })
 
-export class ChatComponent {
+export class ChatComponent implements OnInit {
 
     // //typescript hack for jQuery // installing jquery.d.ts fails
     // $(s: any) {
@@ -37,7 +37,12 @@ export class ChatComponent {
     chatStarted: boolean;
 
     constructor(private chatService: ChatService) {
-        this.chatService.setupTwilio();
+    }
+
+    ngOnInit() {
+        var context = "Viewing " + this.car.name;
+
+        this.chatService.setupTwilio(context);
         this.customerId = this.chatService.customerId;
     }
 

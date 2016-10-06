@@ -2,6 +2,7 @@ import {Injectable} from "@angular/core";
 import {Http, Headers} from "@angular/http";
 import {UserService} from "./user.service";
 import {Router} from "@angular/router";
+import {SyncService} from "./sync.service";
 
 @Injectable()
 export class ChatService {
@@ -22,13 +23,10 @@ export class ChatService {
 
     customerId: number;
 
-    // Our interface to the Twilio Sync service
-    syncClient;
-
-    constructor(private http: Http, private userService: UserService, private router: Router) {
+    constructor(private http: Http, private userService: UserService, private router: Router, private syncService: SyncService) {
     }
 
-    setupTwilio() {
+    setupTwilio(context) {
 
         // TODO implement localStorage for tokens
         if (!this.userService.twilioToken) {
@@ -43,14 +41,10 @@ export class ChatService {
 
         this.accessManager = new (<any>window).Twilio.AccessManager(this.userService.twilioToken);
         this.messagingClient = new (<any>window).Twilio.IPMessaging.Client(this.accessManager);
-        this.syncClient = new (<any>window).Twilio.Sync.Client(this.accessManager);
 
+        this.syncService.setup(this.accessManager);
 
-        this.syncClient.document('Customer:' + this.customerId).then(function (document) {
-            document.update({
-                context: 'Viewing Corsa 2013'
-            });
-        });
+        this.syncService.updateContext(context);
 
         console.log("created Twilio manager");
     }
