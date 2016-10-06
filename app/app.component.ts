@@ -6,13 +6,14 @@ import './rxjs-extensions';
 import {FileService} from "./file-service";
 import {UserService} from "./user.service";
 import {SyncService} from "./sync.service";
+
 @Component({
     selector: 'my-app',
     template: `
     <h1>{{title}}</h1>
-    <nav>
-      <!--<a [routerLink]="['/dashboard']" routerLinkActive="active">Dashboard</a>-->
-      <!--<a [routerLink]="['/cars']" routerLinkActive="active">Cars</a>-->
+    <nav *ngIf="isLoggedIn()" >
+      <a [routerLink]="['/list']" routerLinkActive="active">Cars</a>
+      <a [routerLink]="['/logout']" routerLinkActive="active">Logout</a>
     </nav>
     <router-outlet></router-outlet>
   `,

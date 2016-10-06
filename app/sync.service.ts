@@ -11,6 +11,7 @@ export class SyncService {
     }
 
     setup(accessManager) {
+        console.log("Setting up sync");
         this.syncClient = new (<any>window).Twilio.Sync.Client(accessManager);
     }
 
@@ -30,5 +31,10 @@ export class SyncService {
                 context: context
             });
         });
+    }
+
+    shutdown() {
+        if (this.syncClient)
+            this.syncClient.shutdown();
     }
 }

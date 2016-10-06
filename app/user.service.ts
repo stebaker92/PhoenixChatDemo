@@ -6,7 +6,7 @@ export class UserService {
 
     customerId: number;
 
-    authApiUrl = "http://localhost:6606/authorization/customer/acquire-token/"; // VS
+    authApiUrl = "http://localhost:6606/authorization/customer/acquire-token/";
     contactCentreApiUrl = "http://localhost:5000/auth/customer/";
 
     twilioToken: string;
