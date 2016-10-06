@@ -11,7 +11,7 @@ import {SyncService} from "./sync.service";
     selector: 'my-app',
     template: `
     <h1>{{title}}</h1>
-    <nav *ngIf="isLoggedIn()" >
+    <nav>
       <a [routerLink]="['/list']" routerLinkActive="active">Cars</a>
       <a [routerLink]="['/logout']" routerLinkActive="active">Logout</a>
     </nav>
