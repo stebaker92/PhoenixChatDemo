@@ -31,4 +31,8 @@ export class UserService {
             });
         });
     }
+
+    loggedIn() {
+        return !!this.customerId;
+    }
 }

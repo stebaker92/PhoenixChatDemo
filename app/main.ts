@@ -5,7 +5,9 @@ import {HTTP_PROVIDERS} from '@angular/http';
 import {AppComponent}         from './app.component';
 import {appRouterProviders}   from './app.routes';
 import {LocationStrategy, HashLocationStrategy} from "@angular/common";
+import {enableProdMode} from '@angular/core';
 
+enableProdMode(); // hide "expression has changed shit"
 bootstrap(AppComponent, [
     appRouterProviders,
     HTTP_PROVIDERS,

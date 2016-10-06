@@ -17,8 +17,6 @@ export class LogoutComponent implements OnInit {
         this.userService.customerId = null;
         this.syncService.shutdown();
 
-        window.setTimeout(()=> {
-            this.router.navigate(['/login']);
-        }, 3000);
+        this.router.navigate(['/login']);
     }
 }

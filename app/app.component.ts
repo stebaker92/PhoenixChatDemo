@@ -11,7 +11,7 @@ import {SyncService} from "./sync.service";
     selector: 'my-app',
     template: `
     <h1>{{title}}</h1>
-    <nav>
+    <nav *ngIf="loggedIn()">
       <a [routerLink]="['/list']" routerLinkActive="active">Cars</a>
       <a [routerLink]="['/logout']" routerLinkActive="active">Logout</a>
     </nav>
@@ -26,7 +26,11 @@ import {SyncService} from "./sync.service";
 export class AppComponent {
     title = 'Phoenix Customer Demo';
 
-    constructor(private router: Router) {
+    constructor(private router: Router, private userService: UserService) {
         this.router.navigateByUrl('login');
+    }
+
+    loggedIn() {
+        return this.userService.loggedIn();
     }
 }
