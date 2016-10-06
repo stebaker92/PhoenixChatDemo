@@ -1,8 +1,13 @@
-import { provideRouter, RouterConfig }  from '@angular/router';
+import {provideRouter, RouterConfig}  from '@angular/router';
 
-import { CarDetailComponent } from './car-detail.component';
+import {CarDetailComponent} from './car-detail.component';
+import {LoginComponent} from "./login.component";
 
 const routes: RouterConfig = [
+    {
+        path: 'login',
+        component: LoginComponent
+    },
     {
         path: '',
         redirectTo: '/detail/11',

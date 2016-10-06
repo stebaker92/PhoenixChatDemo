@@ -1,5 +1,7 @@
 import {Injectable} from "@angular/core";
 import {Http, Headers} from "@angular/http";
+import {UserService} from "./user.service";
+import {Router} from "@angular/router";
 
 @Injectable()
 export class ChatService {
@@ -16,66 +18,45 @@ export class ChatService {
     // A handle to the customers chat channel - the one and only channel we need in this sample app
     currentChannel;
 
+    channelName: string;
+
+    customerId: number;
+
     // Our interface to the Twilio Sync service
     syncClient;
 
-    // CONFIG
-    customerId = "1059608"; // 'Test Customer'
-    channelName = "customer:" + this.customerId;
-    customerEmail = "stephen.baker@carfinance247.co.uk";
-    customerPassword = "TEMP";
-    // END CONFIG
+    constructor(private http: Http, private userService: UserService, private router: Router) {
+    }
+
+    setupTwilio() {
+
+        // TODO implement localStorage for tokens
+        if (!this.userService.twilioToken) {
+            this.router.navigate(['/login']);
+            return;
+        }
+
+        this.customerId = this.userService.customerId;
+        this.channelName = "customer:" + this.customerId;
+
+        console.log("creating Twilio manager");
+
+        this.accessManager = new (<any>window).Twilio.AccessManager(this.userService.twilioToken);
+        this.messagingClient = new (<any>window).Twilio.IPMessaging.Client(this.accessManager);
+        this.syncClient = new (<any>window).Twilio.Sync.Client(this.accessManager);
 
 
-    contactCentreApiUrl = "http://localhost:6605/auth/customer/";
-    authApiUrl = "http://localhost:6606/authorization/customer/acquire-token/"; // VS
-    //taskRouterUrl = "https://fcbe0bc8.ngrok.io/tasks/";
-
-    constructor(private http: Http) {
-        this.getAccessTokens().then((twilioToken: any) => {
-            console.log("creating Twilio manager");
-
-            this.accessManager = new (<any>window).Twilio.AccessManager(twilioToken);
-            this.messagingClient = new (<any>window).Twilio.IPMessaging.Client(this.accessManager);
-            this.syncClient = new (<any>window).Twilio.Sync.Client(this.accessManager);
-
-
-            this.syncClient.document('Customer:'+this.customerId).then(function(document) {
-                document.update({
-                    context: 'Viewing Corsa 2013'
-                });
+        this.syncClient.document('Customer:' + this.customerId).then(function (document) {
+            document.update({
+                context: 'Viewing Corsa 2013'
             });
-
-            console.log("created Twilio manager");
         });
+
+        console.log("created Twilio manager");
     }
 
     getMessagingClient() {
         return this.messagingClient;
-    }
-
-    getAccessTokens() {
-
-        let credentials = {userName: this.customerEmail, password: this.customerPassword};
-        return this.http.post(this.authApiUrl, credentials).toPromise().then((response) => {
-            console.log("got customer token from AuthApi");
-            console.log(response);
-
-            let headers = new Headers();
-            headers.append("Authorization", response.text());
-            return this.http.post(this.contactCentreApiUrl, null, {headers: headers})
-                .toPromise()
-                .then((response) => {
-                    //return response.json().token;
-                    console.log(response);
-                    return response.text();
-                })
-                .catch((error) => {
-                    console.error("Error getting customerTwilioToken");
-                    console.error(error);
-                })
-                ;
-        });
     }
 
     joinThenCreateTask(user, car) {

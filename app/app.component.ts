@@ -1,9 +1,10 @@
-import { Component }          from '@angular/core';
-import { ROUTER_DIRECTIVES }  from '@angular/router';
-import { CarService }        from './car.service';
-import { ChatService }        from './chat.service';
+import {Component}          from '@angular/core';
+import {ROUTER_DIRECTIVES, Router}  from '@angular/router';
+import {CarService}        from './car.service';
+import {ChatService}        from './chat.service';
 import './rxjs-extensions';
 import {FileService} from "./file-service";
+import {UserService} from "./user.service";
 @Component({
     selector: 'my-app',
     template: `
@@ -17,9 +18,13 @@ import {FileService} from "./file-service";
     styleUrls: ['app/app.component.css'],
     directives: [ROUTER_DIRECTIVES],
     providers: [
-        CarService, ChatService, FileService
+        CarService, ChatService, FileService, UserService
     ]
 })
 export class AppComponent {
     title = 'Phoenix Customer Demo';
+
+    constructor(private router: Router) {
+        this.router.navigateByUrl('login');
+    }
 }

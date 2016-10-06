@@ -12,7 +12,7 @@ import {Member} from "./member";
     directives: [MessageComponent]
 })
 
-export class ChatComponent implements OnInit {
+export class ChatComponent {
 
     // //typescript hack for jQuery // installing jquery.d.ts fails
     // $(s: any) {
@@ -25,7 +25,7 @@ export class ChatComponent implements OnInit {
     // Test context
     @Input() car: Car;
 
-    customerId = this.chatService.customerId;
+    customerId: number;
 
     messages: Message[] = [];
 
@@ -37,15 +37,12 @@ export class ChatComponent implements OnInit {
     chatStarted: boolean;
 
     constructor(private chatService: ChatService) {
-    }
-
-    ngOnInit() {
+        this.chatService.setupTwilio();
+        this.customerId = this.chatService.customerId;
     }
 
     startChat() {
         this.chatStarted = true;
-
-        //todo create task
 
         console.log("attempting to join channel");
 
@@ -127,7 +124,7 @@ export class ChatComponent implements OnInit {
 
     printMessage(message: Message) {
 
-        var senderId = message.author.split(":")[1];
+        var senderId = parseInt(message.author.split(":")[1]);
 
         if (message.attributes.messageTypeId === 1) { // SMS
             return;

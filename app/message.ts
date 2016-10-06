@@ -17,5 +17,5 @@ export class Message {
 
 export class MessageAttributes {
     messageTypeId: number;
-    customerId: string;
+    customerId: number;
 }
