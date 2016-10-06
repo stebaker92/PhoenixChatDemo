@@ -21,5 +21,5 @@ import {FileService} from "./file-service";
     ]
 })
 export class AppComponent {
-    title = 'Phoenix chat demo';
+    title = 'Phoenix Customer Demo';
 }
