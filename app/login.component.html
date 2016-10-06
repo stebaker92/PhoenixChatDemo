@@ -1,7 +1,17 @@
-<select [(ngModel)]="selectedUser" class="form-control" >
-    <option *ngFor="let u of users" [ngValue]="u">{{u.id + ' - ' + u.email}}</option>
-</select>
+<div>
+    <label for="">Username</label>
+    <br>
+    <select [(ngModel)]="selectedUser" class="form-control">
+        <option *ngFor="let u of users" [ngValue]="u">{{u.id + ' - ' + u.email}}</option>
+    </select>
+</div>
 
-<input type="password" class="form-control" value="{{ selectedUser ? 'password' : null }}" disabled="disabled">
+<div>
+    <label for="">Password</label>
+    <br>
+    <input type="password" class="form-control" value="{{ selectedUser ? 'password' : null }}" disabled="disabled">
+</div>
 
-<button (click)="login()" class="btn btn-default" [disabled]="!selectedUser"> Login </button>
+<div>
+    <button (click)="login()" class="btn btn-default" [disabled]="!selectedUser"> Login</button>
+</div>
