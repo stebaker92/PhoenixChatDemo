@@ -1,0 +1,9 @@
+<h2>All Cars</h2>
+<ul class="cars">
+    <li *ngFor="let car of cars" (click)="onSelect(car)">
+    <span class="car-element">
+      <span class="badge">{{car.id}}</span> {{car.name}}
+    </span>
+    </li>
+</ul>
+<div class="error" *ngIf="error">{{error}}</div>

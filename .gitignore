@@ -256,7 +256,7 @@ typings/
 packages/
 
 # typescript compiled
-app/*.js
-app/*.js.map
+app/**/*.js
+app/**/*.js.map
 
 .idea*/

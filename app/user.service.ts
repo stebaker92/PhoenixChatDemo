@@ -21,7 +21,7 @@ export class UserService {
 
         return this.http.post(this.authApiUrl, credentials).toPromise().then((response) => {
             var customerToken = response.text();
-            console.log("got customer token from AuthApi", customerToken);
+            console.log("got customer token from AuthApi");
 
             let headers = new Headers();
             headers.append("Authorization", customerToken);

@@ -24,6 +24,7 @@ export class SyncService {
         if (!this.syncClient) {
             return;
         }
+        console.log("updating context to", context);
         this.getCustomerDocument().then((document) => {
             document.update({
                 context: context

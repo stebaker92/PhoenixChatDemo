@@ -24,7 +24,7 @@ export class LoginComponent {
 
     login() {
         this.userService.authenticate(this.selectedUser.id, this.selectedUser.email, this.selectedUser.password).then(() => {
-            this.router.navigate(['/detail', 11])
+            this.router.navigate(['/list']);
         });
     }
 }

@@ -1,11 +1,11 @@
 [
   {
     "id": 11,
-    "name": "Corsa 2013"
+    "name": "Vauxhall Corsa 2013"
   },
   {
     "id": 12,
-    "name": "Fiesta 2014"
+    "name": "Ford Fiesta 2014"
   },
   {
     "id": 13,
@@ -13,14 +13,10 @@
   },
   {
     "id": 14,
-    "name": "Trans AM 1987"
-  },
-  {
-    "id": 15,
     "name": "Chevrolet Camaro 2013"
   },
   {
-    "id": 16,
-    "name": "Civic 2012"
+    "id": 15,
+    "name": "Honda Civic 2012"
   }
 ]
