@@ -16,7 +16,7 @@ const routes: RouterConfig = [
     },
     {
         path: '',
-        redirectTo: '/detail/11',
+        redirectTo: '/login',
         pathMatch: 'full'
     },
     {
