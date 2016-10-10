@@ -33,6 +33,6 @@ export class UserService {
     }
 
     loggedIn() {
-        return !!this.customerId;
+        return this.customerId && this.twilioToken;
     }
 }
