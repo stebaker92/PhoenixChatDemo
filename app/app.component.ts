@@ -21,8 +21,17 @@ export class AppComponent {
     title = 'Phoenix Customer Demo';
 
     constructor(private router: Router, private userService: UserService) {
-        if (!this.loggedIn()) {
-            this.router.navigate(['login']);
+        if (this.loggedIn()) {
+            return;
+        }
+
+        // if we're not logged in and not going to index / login - redirect
+        if (!window.location.hash) {
+            return;
+        }
+        if (window.location.hash.indexOf("login") === -1) {
+            window.location.href = window.location.origin + window.location.pathname;
+            console.warn("user is not authenticated");
         }
     }
 
