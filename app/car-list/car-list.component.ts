@@ -4,12 +4,13 @@ import {Car}                from '../car';
 import {CarService}         from '../car.service';
 import {CarDetailComponent} from '../car-detail.component';
 import {SyncService} from "../sync.service";
+import {ChatComponent} from "../chat.component";
 
 @Component({
     selector: 'car-list',
     templateUrl: 'app/car-list/car-list.component.html',
     styleUrls: ['app/car-list/car-list.component.css'],
-    directives: [CarDetailComponent]
+    directives: [CarDetailComponent, ChatComponent]
 })
 export class CarListComponent implements OnInit {
     cars: Car[];
@@ -22,7 +23,11 @@ export class CarListComponent implements OnInit {
     ngOnInit() {
         this.getCars();
 
-        this.syncService.updateContext("On mobile app")
+        if (this.selectedCar) {
+            this.syncService.updateContext("Viewing " + this.selectedCar.name)
+        } else {
+            this.syncService.updateContext("On mobile app")
+        }
     }
 
     getCars() {

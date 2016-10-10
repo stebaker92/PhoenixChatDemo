@@ -26,7 +26,7 @@ export class ChatService {
     constructor(private http: Http, private userService: UserService, private router: Router, private syncService: SyncService) {
     }
 
-    setupTwilio(context) {
+    setupTwilio() {
 
         // TODO implement localStorage for tokens
         if (!this.userService.twilioToken) {
@@ -44,7 +44,6 @@ export class ChatService {
 
         this.syncService.setup(this.accessManager);
 
-        this.syncService.updateContext(context);
 
         console.log("created Twilio manager");
     }
@@ -53,14 +52,13 @@ export class ChatService {
         return this.messagingClient;
     }
 
-    joinThenCreateTask(user, car) {
+    joinThenCreateTask() {
 
-        //return this.joinChannel(user).then(() => {
         return this.joinChannel(this.channelName).then(() => {
-            var model = {
-                attributes: '{"customer_location": "car-search", "car_name": "' + car.name + '", "username": "' + user + '"}',
-                workflowSid: "WW9bdbf175bd2a6133c63caf4145315acc",
-            };
+            // var model = {
+                // attributes: '{"customer_location": "car-search", "username": "' + user + '"}',
+                // workflowSid: "WW9bdbf175bd2a6133c63caf4145315acc",
+            // };
             return new Promise((resolve)=> {
                 setTimeout(() => {
                     resolve();

@@ -6,6 +6,7 @@ import './rxjs-extensions';
 import {FileService} from "./file-service";
 import {UserService} from "./user.service";
 import {SyncService} from "./sync.service";
+import {ChatComponent} from "./chat.component";
 
 @Component({
     selector: 'my-app',
@@ -15,10 +16,13 @@ import {SyncService} from "./sync.service";
       <a [routerLink]="['/list']" routerLinkActive="active">Cars</a>
       <a [routerLink]="['/logout']" routerLinkActive="active">Logout</a>
     </nav>
+    <div *ngIf="loggedIn()">
+        <chat></chat>
+    </div>
     <router-outlet></router-outlet>
   `,
     styleUrls: ['app/app.component.css'],
-    directives: [ROUTER_DIRECTIVES],
+    directives: [ROUTER_DIRECTIVES, ChatComponent],
     providers: [
         CarService, ChatService, FileService, UserService, SyncService
     ]

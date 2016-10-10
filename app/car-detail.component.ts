@@ -2,15 +2,14 @@ import {Component, EventEmitter, Input, OnInit, OnDestroy, Output} from '@angula
 import {ActivatedRoute} from '@angular/router';
 import {Car}        from './car';
 import {CarService} from './car.service';
-import {ChatComponent} from "./chat.component";
 import {SyncService} from "./sync.service";
 
 @Component({
     selector: 'my-car-detail',
     templateUrl: 'app/car-detail.component.html',
-    styleUrls: ['app/car-detail.component.css'],
-    directives: [ChatComponent]
+    styleUrls: ['app/car-detail.component.css']
 })
+
 export class CarDetailComponent implements OnInit, OnDestroy {
     @Input() car: Car;
     error: any;

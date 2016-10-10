@@ -22,9 +22,6 @@ export class ChatComponent implements OnInit {
     // True when connected to the chat channel
     connectedToAgent = false;
 
-    // Test context
-    @Input() car: Car;
-
     customerId: number;
 
     messages: Message[] = [];
@@ -40,9 +37,7 @@ export class ChatComponent implements OnInit {
     }
 
     ngOnInit() {
-        var context = "Viewing " + this.car.name;
-
-        this.chatService.setupTwilio(context);
+        this.chatService.setupTwilio();
         this.customerId = this.chatService.customerId;
     }
 
@@ -53,7 +48,7 @@ export class ChatComponent implements OnInit {
 
         this.print('Logged in with customerId: "' + this.customerId);
 
-        this.chatService.joinThenCreateTask(this.customerId, this.car).then(() => {
+        this.chatService.joinThenCreateTask().then(() => {
             console.log("watching channel for events");
             this.connectedToAgent = true;
             this.chatService.currentChannel.on("typingStarted", (member) => {
@@ -75,7 +70,6 @@ export class ChatComponent implements OnInit {
                 this.print("You are now connected to '" + member.userInfo.identity + "' ");
 
                 console.log("member joined", member);
-                console.log("context is: ", this.car.id, this.car.name);
             });
 
             this.chatService.currentChannel.on("memberLeft", (member: Member) => {
