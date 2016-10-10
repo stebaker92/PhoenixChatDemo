@@ -18,7 +18,8 @@ export class LoginComponent {
 
     constructor(private router: Router, private userService: UserService) {
         this.users = [
-            {id: 1059608, email: 'stephen.baker@carfinance247.co.uk', password: 'test'}
+            {id: 1059608, email: 'stephen.baker@carfinance247.co.uk', password: 'test'},
+            {id: 1059609, email: 'fredperry9@hotmail.com', password: 'test'}
         ];
     }
 

@@ -4,6 +4,8 @@ import {Injectable} from "@angular/core";
 @Injectable()
 export class FileService {
 
+    documentApi = "http://localhost:60646/";
+
     constructor(private http: Http) {
     }
 
@@ -11,7 +13,7 @@ export class FileService {
         var headers = new Headers();
         headers.append('responseType', 'arraybuffer');
 
-        this.http.get("http://localhost:60646/documents/" + documentId, headers).toPromise().then((data) => {
+        this.http.get(this.documentApi + "documents/" + documentId, headers).toPromise().then((data) => {
             var blob = new Blob([data.text()]);
             var url = window.URL.createObjectURL(blob);
             var anchor = <any>(document.createElement("a"));
