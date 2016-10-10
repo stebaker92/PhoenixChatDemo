@@ -3,6 +3,8 @@ import {Http, Headers} from "@angular/http";
 import {UserService} from "./user.service";
 import {Router} from "@angular/router";
 import {SyncService} from "./sync.service";
+import {FileService} from "./file-service";
+import {MessageAttributes} from "./models/message";
 
 @Injectable()
 export class ChatService {
@@ -23,7 +25,7 @@ export class ChatService {
 
     customerId: number;
 
-    constructor(private http: Http, private userService: UserService, private router: Router, private syncService: SyncService) {
+    constructor(private http: Http, private userService: UserService, private router: Router, private syncService: SyncService, private fileService: FileService) {
     }
 
     setupTwilio() {
@@ -56,8 +58,8 @@ export class ChatService {
 
         return this.joinChannel(this.channelName).then(() => {
             // var model = {
-                // attributes: '{"customer_location": "car-search", "username": "' + user + '"}',
-                // workflowSid: "WW9bdbf175bd2a6133c63caf4145315acc",
+            // attributes: '{"customer_location": "car-search", "username": "' + user + '"}',
+            // workflowSid: "WW9bdbf175bd2a6133c63caf4145315acc",
             // };
             return new Promise((resolve)=> {
                 setTimeout(() => {
@@ -95,17 +97,19 @@ export class ChatService {
         let formData = new FormData();
         formData.append("file", file, file.name);
 
-        this.http.post("http://localhost:60646/documents", formData).toPromise().then((response: any)=> {
+        this.fileService.post(formData).then((response: any)=> {
             var documentId = response.json();
 
             var documentAttributes = {
                 documentId: documentId,
                 filename: file.name
             };
-            this.currentChannel.sendMessage(JSON.stringify(documentAttributes), {
-                CustomerId: this.customerId,
-                MessageTypeId: 2 // DOCUMENT
-            });
+            var messageAttributes: MessageAttributes = {
+                customerId: this.customerId,
+                messageTypeId: 2 // DOCUMENT
+            };
+
+            this.currentChannel.sendMessage(JSON.stringify(documentAttributes), messageAttributes);
 
             return documentId;
         });

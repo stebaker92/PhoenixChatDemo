@@ -22,4 +22,8 @@ export class FileService {
             anchor.click();
         });
     }
+
+    post(formData: FormData) {
+        return this.http.post(this.documentApi + "/documents", formData).toPromise();
+    }
 }
