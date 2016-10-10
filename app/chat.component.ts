@@ -1,9 +1,8 @@
 import {Component, OnInit, Input} from '@angular/core'
 import {ChatService} from "./chat.service";
-import {Car} from "./car";
-import {Message, MessageAttributes} from "./message"
+import {Message, MessageAttributes} from "./models/message"
 import {MessageComponent} from "./message.component";
-import {Member} from "./member";
+import {Member} from "./models/member";
 
 @Component({
     selector: 'chat',

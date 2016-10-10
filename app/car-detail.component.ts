@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, OnDestroy, Output} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {Car}        from './car';
+import {Car}        from './models/car';
 import {CarService} from './car.service';
 import {SyncService} from "./sync.service";
 

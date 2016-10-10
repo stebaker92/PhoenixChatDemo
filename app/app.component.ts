@@ -10,17 +10,7 @@ import {ChatComponent} from "./chat.component";
 
 @Component({
     selector: 'my-app',
-    template: `
-    <h1>{{title}}</h1>
-    <nav *ngIf="loggedIn()">
-      <a [routerLink]="['/list']" routerLinkActive="active">Cars</a>
-      <a [routerLink]="['/logout']" routerLinkActive="active">Logout</a>
-    </nav>
-    <div *ngIf="loggedIn()">
-        <chat></chat>
-    </div>
-    <router-outlet></router-outlet>
-  `,
+    templateUrl: "app/app.component.html",
     styleUrls: ['app/app.component.css'],
     directives: [ROUTER_DIRECTIVES, ChatComponent],
     providers: [
@@ -31,7 +21,9 @@ export class AppComponent {
     title = 'Phoenix Customer Demo';
 
     constructor(private router: Router, private userService: UserService) {
-        this.router.navigateByUrl('login');
+        if (!this.loggedIn()) {
+            this.router.navigate(['login']);
+        }
     }
 
     loggedIn() {

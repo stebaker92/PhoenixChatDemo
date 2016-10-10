@@ -1,10 +1,13 @@
 import {Injectable}    from '@angular/core';
 import {Headers, Http} from '@angular/http';
 import 'rxjs/add/operator/toPromise';
-import {Car} from './car';
+import {Car} from './models/car';
+
 @Injectable()
 export class CarService {
+
     private carsUrl = 'app/cars.json';  // URL to web api
+
     constructor(private http: Http) {
     }
 

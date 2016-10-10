@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core'
-import {Message} from './message'
+import {Message} from './models/message'
 import {NgClass} from "@angular/common";
 import {FileService} from "./file-service";
 

@@ -1,0 +1,12 @@
+<h1>{{title}}</h1>
+
+<nav *ngIf="loggedIn()">
+    <a [routerLink]="['/list']" routerLinkActive="active">Cars</a>
+    <a [routerLink]="['/logout']" routerLinkActive="active">Logout</a>
+</nav>
+
+<div *ngIf="loggedIn()">
+    <chat></chat>
+</div>
+
+<router-outlet></router-outlet>
