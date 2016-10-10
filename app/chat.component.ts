@@ -66,14 +66,15 @@ export class ChatComponent implements OnInit {
 
             this.chatService.currentChannel.on("memberJoined", (member: Member) => {
                 this.connectedToAgent = true;
-
-                this.print("You are now connected to '" + member.getDisplayName() + "' ");
+                var displayName = member.userInfo.identity.split(":")[2].replace("_", " ");
+                this.print("You are now connected to '" + displayName + "' ");
 
                 console.log("member joined", member);
             });
 
             this.chatService.currentChannel.on("memberLeft", (member: Member) => {
-                this.print("'" + member.getDisplayName() + "' has left the chat");
+                var displayName = member.userInfo.identity.split(":")[2].replace("_", " ");
+                this.print("'" + displayName + "' has left the chat");
             });
         });
     }
