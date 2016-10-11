@@ -69,6 +69,6 @@ export class FileService {
     }
 
     post(formData: FormData) {
-        return this.http.post(this.documentApi + "/documents", formData).toPromise();
+        return this.http.post(this.documentApi + "documents", formData).toPromise();
     }
 }
