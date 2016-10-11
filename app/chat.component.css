@@ -28,7 +28,6 @@ a:hover {
     right: 20px;
     position: absolute;
     bottom: 0;
-    /*margin:0 auto;*/
     padding-bottom: 10px;
     background: #EBF4FB;
     width: 300px;
@@ -55,7 +54,7 @@ a:hover {
     border: 1px solid #ACD8F0;
 }
 
-#submitmsg {
+#send-message-btn {
     height: 20px;
 }
 
@@ -68,7 +67,7 @@ input[type=file] {
     color: #ff0000;
 }
 
-#menu {
+#chat-header {
     padding: 12.5px 25px 12.5px 25px;
 }
 
@@ -97,4 +96,10 @@ input[type=file] {
 .messages .username.me {
     display: inline-block;
     margin-right: 5px;
+}
+
+.members-typing {
+    padding-left: 15px;
+    top: -8px;
+    position: relative;
 }

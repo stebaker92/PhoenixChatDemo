@@ -1,9 +1,8 @@
 <div id="chat-box">
-    <div id="menu">
+    <div id="chat-header">
         <p class="welcome">CustomerId: <b>{{customerId}}</b></p>
         <br>
         <p *ngIf="!connectedToAgent && chatStarted">Connecting to agent...</p>
-        <!--<p class="logout"><a id="exit" href="#">Exit Chat</a></p>-->
         <div style="clear:both"></div>
     </div>
 
@@ -12,7 +11,7 @@
             <message [message]="msg"></message>
         </div>
     </div>
-    <div style="padding-left: 15px; top:-8px; position: relative;">
+    <div class="members-typing">
         <span [hidden]="!membersTyping">{{membersTyping}} is typing ... </span>
     </div>
 
@@ -20,7 +19,7 @@
 
     <form name="message" *ngIf="chatStarted">
         <input id="chat-input" type="text" [placeholder]="!connectedToAgent ? 'Connecting to agent...' : 'say anything!'" autofocus [(ngModel)]="input" [disabled]="!connectedToAgent"/>
-        <input type="submit" id="submitmsg" value="Send" (click)="onSubmit()" [disabled]="!connectedToAgent" />
+        <input type="submit" id="send-message-btn" value="Send" (click)="onSubmit()" [disabled]="!connectedToAgent" />
         <input type="file" value="Send Document" (change)="sendDocument($event)" [disabled]="!connectedToAgent" />
     </form>
 </div>

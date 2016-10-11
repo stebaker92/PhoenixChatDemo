@@ -45,7 +45,7 @@ export class ChatComponent implements OnInit {
 
         console.log("attempting to join channel");
 
-        this.print('Logged in with customerId: "' + this.customerId);
+        this.print('Logged in with customerId: ' + this.customerId);
 
         this.chatService.joinChannel().then(() => {
             console.log("watching channel for events");
