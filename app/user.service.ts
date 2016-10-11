@@ -1,13 +1,14 @@
 import {Injectable} from "@angular/core";
 import {Http, Headers} from "@angular/http";
+import {AppSettings} from "./app.settings";
 
 @Injectable()
 export class UserService {
 
     customerId: number;
 
-    authApiUrl = "http://localhost:6606/authorization/customer/acquire-token/";
-    contactCentreApiUrl = "http://localhost:5000/auth/customer/";
+    authApiTokenRoute = AppSettings.authApiTokenRoute;
+    contactCentreApiTokenRoute = AppSettings.contactCentreApiTokenRoute;
 
     twilioToken: string;
 
@@ -19,14 +20,14 @@ export class UserService {
 
         let credentials = {userName: email, password: password};
 
-        return this.http.post(this.authApiUrl, credentials).toPromise().then((response) => {
+        return this.http.post(this.authApiTokenRoute, credentials).toPromise().then((response) => {
             var customerToken = response.text();
             console.log("got customer token from AuthApi");
 
             let headers = new Headers();
             headers.append("Authorization", customerToken);
 
-            return this.http.post(this.contactCentreApiUrl, null, {headers: headers}).toPromise().then((response)=> {
+            return this.http.post(this.contactCentreApiTokenRoute, null, {headers: headers}).toPromise().then((response)=> {
                 this.twilioToken = response.text();
             });
         });

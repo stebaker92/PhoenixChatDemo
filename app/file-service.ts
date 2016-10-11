@@ -1,10 +1,11 @@
 import {Http, Headers} from "@angular/http";
 import {Injectable} from "@angular/core";
+import {AppSettings} from "./app.settings";
 
 @Injectable()
 export class FileService {
 
-    documentApi = "http://localhost:60646/";
+    documentApi = AppSettings.documentApi;
 
     constructor(private http: Http) {
     }

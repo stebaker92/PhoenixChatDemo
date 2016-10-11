@@ -47,7 +47,7 @@ export class ChatComponent implements OnInit {
 
         this.print('Logged in with customerId: "' + this.customerId);
 
-        this.chatService.joinThenCreateTask().then(() => {
+        this.chatService.joinChannel().then(() => {
             console.log("watching channel for events");
             this.connectedToAgent = true;
             this.chatService.currentChannel.on("typingStarted", (member) => {

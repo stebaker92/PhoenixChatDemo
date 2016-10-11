@@ -54,34 +54,21 @@ export class ChatService {
         return this.messagingClient;
     }
 
-    joinThenCreateTask() {
+    joinChannel() {
 
-        return this.joinChannel(this.channelName).then(() => {
-            // var model = {
-            // attributes: '{"customer_location": "car-search", "username": "' + user + '"}',
-            // workflowSid: "WW9bdbf175bd2a6133c63caf4145315acc",
-            // };
-            return new Promise((resolve)=> {
-                setTimeout(() => {
-                    resolve();
-                }, 1000);
-            });
-        });
-    }
+        console.log('Attempting to join "' + this.channelName + '" chat channel...');
 
-    joinChannel(channelName: string) {
-        console.log('Attempting to join "' + channelName + '" chat channel...');
         // Get the custom chat channel
-        var promise = this.messagingClient.getChannelByUniqueName(channelName);
+        var promise = this.messagingClient.getChannelByUniqueName(this.channelName);
         return promise.then((channel) => {
             this.currentChannel = channel;
             if (!this.currentChannel) {
                 // If it doesn't exist, let's create it
                 this.messagingClient.createChannel({
-                    uniqueName: channelName,
-                    friendlyName: channelName
+                    uniqueName: this.channelName,
+                    friendlyName: this.channelName
                 }).then((channel) => {
-                    console.log('Created "' + channelName + '" channel:');
+                    console.log('Created "' + this.channelName + '" channel:');
                     this.currentChannel = channel;
                     return this.currentChannel.join();
                 });
