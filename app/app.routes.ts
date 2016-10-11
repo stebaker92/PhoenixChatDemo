@@ -1,7 +1,7 @@
 import {provideRouter, RouterConfig}  from '@angular/router';
 
-import {CarDetailComponent} from './car-detail.component';
-import {LoginComponent} from "./login.component";
+import {CarDetailComponent} from './car-detail/car-detail.component';
+import {LoginComponent} from "./login/login.component";
 import {CarListComponent} from "./car-list/car-list.component";
 import {LogoutComponent} from "./logout/logout.component";
 

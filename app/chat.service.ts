@@ -3,7 +3,7 @@ import {Http, Headers} from "@angular/http";
 import {UserService} from "./user.service";
 import {Router} from "@angular/router";
 import {SyncService} from "./sync.service";
-import {FileService} from "./file-service";
+import {FileService} from "./file.service";
 import {MessageAttributes} from "./models/message";
 
 @Injectable()
@@ -25,7 +25,7 @@ export class ChatService {
 
     customerId: number;
 
-    constructor(private http: Http, private userService: UserService, private router: Router, private syncService: SyncService, private fileService: FileService) {
+    constructor(private userService: UserService, private router: Router, private syncService: SyncService, private fileService: FileService) {
     }
 
     setupTwilio() {

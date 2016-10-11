@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Router}            from '@angular/router';
 import {Car}                from '../models/car';
 import {CarService}         from '../car.service';
-import {CarDetailComponent} from '../car-detail.component';
+import {CarDetailComponent} from '../car-detail/car-detail.component';
 import {SyncService} from "../sync.service";
 import {ChatComponent} from "../chat.component";
 
@@ -24,9 +24,9 @@ export class CarListComponent implements OnInit {
         this.getCars();
 
         if (this.selectedCar) {
-            this.syncService.updateContext("Viewing " + this.selectedCar.name)
+            this.syncService.updateContext("Viewing " + this.selectedCar.name);
         } else {
-            this.syncService.updateContext("On mobile app")
+            this.syncService.updateContext("On mobile app");
         }
     }
 

@@ -1,11 +1,10 @@
 import {Component} from "@angular/core";
 import {Router} from "@angular/router";
-import {UserService} from "./user.service";
+import {UserService} from "../user.service";
 
 @Component({
     selector: 'my-car-detail',
-    templateUrl: 'app/login.component.html',
-    //styleUrls: ['app/.component.css'],
+    templateUrl: 'app/login/login.component.html',
     directives: []
 })
 export class LoginComponent {

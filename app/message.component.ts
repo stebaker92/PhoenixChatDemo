@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core'
 import {Message} from './models/message'
 import {NgClass} from "@angular/common";
-import {FileService} from "./file-service";
+import {FileService} from "./file.service";
 
 @Component({
     selector: 'message',

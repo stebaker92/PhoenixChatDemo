@@ -1,13 +1,13 @@
-import {Component, EventEmitter, Input, OnInit, OnDestroy, Output} from '@angular/core';
+import {Component, Input, OnInit, OnDestroy} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {Car}        from './models/car';
-import {CarService} from './car.service';
-import {SyncService} from "./sync.service";
+import {Car}        from '../models/car';
+import {CarService} from '../car.service';
+import {SyncService} from "../sync.service";
 
 @Component({
     selector: 'my-car-detail',
-    templateUrl: 'app/car-detail.component.html',
-    styleUrls: ['app/car-detail.component.css']
+    templateUrl: 'app/car-detail/car-detail.component.html',
+    styleUrls: ['app/car-detail/car-detail.component.css']
 })
 
 export class CarDetailComponent implements OnInit, OnDestroy {
@@ -15,6 +15,7 @@ export class CarDetailComponent implements OnInit, OnDestroy {
     error: any;
     sub: any;
     navigated = false; // true if navigated here
+
     constructor(private carService: CarService,
                 private route: ActivatedRoute,
                 private syncService: SyncService) {
