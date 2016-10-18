@@ -29,7 +29,7 @@ export class CarDetailComponent implements OnInit, OnDestroy {
                 this.carService.getCar(id)
                     .then(car => {
                         this.car = car;
-                        this.syncService.updateContext("Currently viewing :" + car.name);
+                        this.syncService.updateContext("viewing " + car.name);
                     });
             } else {
                 this.navigated = false;

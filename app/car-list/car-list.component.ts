@@ -24,9 +24,9 @@ export class CarListComponent implements OnInit {
         this.getCars();
 
         if (this.selectedCar) {
-            this.syncService.updateContext("Currently viewing: " + this.selectedCar.name);
+            this.syncService.updateContext("viewing " + this.selectedCar.name);
         } else {
-            this.syncService.updateContext("Currently on mobile app");
+            this.syncService.updateContext("on car search");
         }
     }
 
