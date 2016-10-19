@@ -1,5 +1,7 @@
 import {Injectable} from "@angular/core";
 import {UserService} from "./user.service";
+import {AppSettings} from "./app.settings";
+import {Http, Headers} from "@angular/http";
 
 @Injectable()
 export class SyncService {
@@ -7,7 +9,9 @@ export class SyncService {
     // Our interface to the Twilio Sync service
     syncClient;
 
-    constructor(private userService: UserService) {
+    contextApiRoute = AppSettings.contactCentreApi + "sync/context/";
+
+    constructor(private http: Http, private userService: UserService) {
     }
 
     setup(accessManager) {
@@ -15,21 +19,14 @@ export class SyncService {
         this.syncClient = new (<any>window).Twilio.Sync.Client(accessManager);
     }
 
-    getCustomerDocument() {
-        var customerId = this.userService.customerId;
-
-        return this.syncClient.document('Customer:' + customerId);
-    }
-
     updateContext(context: string) {
-        if (!this.syncClient) {
-            return;
-        }
         console.log("updating context to", context);
-        this.getCustomerDocument().then((document) => {
-            document.update({
-                context: context
-            });
+
+        let headers = new Headers();
+        headers.append("Authorization", this.userService.customerToken);
+
+        return this.http.post(this.contextApiRoute + "?context=" + context, null, {headers: headers}).toPromise().then(() => {
+            console.debug("context updated");
         });
     }
 

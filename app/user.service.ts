@@ -8,8 +8,9 @@ export class UserService {
     customerId: number;
 
     authApiTokenRoute = AppSettings.authApiTokenRoute;
-    contactCentreApiTokenRoute = AppSettings.contactCentreApiTokenRoute;
+    contactCentreApiTokenRoute = AppSettings.contactCentreApi + "auth/customer/";
 
+    customerToken:string;
     twilioToken: string;
 
     constructor(private http: Http) {
@@ -21,11 +22,11 @@ export class UserService {
         let credentials = {userName: email, password: password};
 
         return this.http.post(this.authApiTokenRoute, credentials).toPromise().then((response) => {
-            var customerToken = response.text();
+            this.customerToken = response.text();
             console.log("got customer token from AuthApi");
 
             let headers = new Headers();
-            headers.append("Authorization", customerToken);
+            headers.append("Authorization", this.customerToken);
 
             return this.http.post(this.contactCentreApiTokenRoute, null, {headers: headers}).toPromise().then((response)=> {
                 this.twilioToken = response.text();
