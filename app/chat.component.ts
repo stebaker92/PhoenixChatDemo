@@ -14,9 +14,9 @@ import {Member} from "./models/member";
 export class ChatComponent implements OnInit {
 
     // //typescript hack for jQuery // installing jquery.d.ts fails
-    // $(s: any) {
-    //     return (<any>window).$(s);
-    // }
+    $(s: any) {
+        return (<any>window).$(s);
+    }
 
     // True when connected to the chat channel
     connectedToAgent = false;
@@ -91,6 +91,7 @@ export class ChatComponent implements OnInit {
         console.log(files);
 
         this.chatService.sendFile(files[0]);
+        this.$("#chat-file-input").val(null);
     }
 
     updateTypingIndicator(display: boolean, member?) {
