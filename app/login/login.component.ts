@@ -12,13 +12,13 @@ export class LoginComponent {
     username: string;
     password: string;
 
-    users;
+    users: any[];
     selectedUser: any;
 
     constructor(private router: Router, private userService: UserService) {
         this.users = [
-            {id: 1059608, email: 'stephen.baker@carfinance247.co.uk', password: 'test'},
-            {id: 1059609, email: 'fredperry9@hotmail.com', password: 'test'}
+            {id: 1059608, email: 'stephen.baker@carfinance247.co.uk', password: ''},
+            {id: 1059609, email: 'fredperry9@hotmail.com', password: ''}
         ];
     }
 

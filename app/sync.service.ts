@@ -23,7 +23,7 @@ export class SyncService {
         console.log("updating context to", context);
 
         let headers = new Headers();
-        headers.append("Authorization", this.userService.customerToken);
+        headers.append("Authorization", this.userService.customerToken.authenticationToken);
 
         return this.http.post(this.contextApiRoute + "?context=" + context, null, {headers: headers}).toPromise().then(() => {
             console.debug("context updated");

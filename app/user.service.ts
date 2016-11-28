@@ -10,7 +10,7 @@ export class UserService {
     authApiTokenRoute = AppSettings.authApiTokenRoute;
     contactCentreApiTokenRoute = AppSettings.contactCentreApi + "auth/customer/";
 
-    customerToken:string;
+    customerToken: any;
     twilioToken: string;
 
     constructor(private http: Http) {
@@ -19,16 +19,16 @@ export class UserService {
     authenticate(customerId: number, email: string, password: string) {
         this.customerId = customerId;
 
-        let credentials = {userName: email, password: password};
+        let credentials = {userName: email, password: 'indigohome67', clientId: 'mobile', accessType: 3};
 
         return this.http.post(this.authApiTokenRoute, credentials).toPromise().then((response) => {
-            this.customerToken = response.text();
-            console.log("got customer token from AuthApi");
+            this.customerToken = response.json();
+            console.log("got customer token from AuthApi", this.customerToken.authenticationToken);
 
             let headers = new Headers();
-            headers.append("Authorization", this.customerToken);
+            headers.append("Authorization", this.customerToken.authenticationToken);
 
-            return this.http.post(this.contactCentreApiTokenRoute, null, {headers: headers}).toPromise().then((response)=> {
+            return this.http.post(this.contactCentreApiTokenRoute, null, {headers: headers}).toPromise().then((response) => {
                 this.twilioToken = response.text();
             });
         });
