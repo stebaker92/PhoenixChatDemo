@@ -1,12 +1,9 @@
-<div id="chat-box">
-    <div id="chat-header">
-        <p class="welcome">CustomerId: <b>{{customerId}}</b></p>
-        <br>
+<div id="chat-box" [ngStyle]="{'padding-top': chatStarted ? '0' : '10px'}">
+    <div id="chat-header" [ngStyle]="{'display': chatStarted ? 'block' : 'none'}">
         <p *ngIf="!connectedToAgent && chatStarted">Connecting to agent...</p>
         <div style="clear:both"></div>
     </div>
-
-    <div id="messages">
+    <div id="messages" [ngStyle]="{'display': chatStarted ? 'block' : 'none'}">
         <div *ngFor="let msg of messages">
             <message [message]="msg"></message>
         </div>

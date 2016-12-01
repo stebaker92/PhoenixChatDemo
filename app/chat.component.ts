@@ -76,6 +76,13 @@ export class ChatComponent implements OnInit {
                 var displayName = member.userInfo.identity.split(":")[2].replace("_", " ");
                 this.print("'" + displayName + "' has left the chat");
             });
+
+            setTimeout(function(){
+                var $messagingContext = this.$('#messages');
+                $messagingContext.on('DOMNodeInserted', function () {
+                    $messagingContext.scrollTop($messagingContext[0].scrollHeight);
+                });
+            }, 10000);
         });
     }
 
