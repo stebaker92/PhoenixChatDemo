@@ -21,7 +21,7 @@ export class ChatComponent implements OnInit {
     // True when connected to the chat channel
     connectedToAgent = false;
 
-    customerId: number;
+    customerUserId: number;
 
     messages: Message[] = [];
 
@@ -37,7 +37,7 @@ export class ChatComponent implements OnInit {
 
     ngOnInit() {
         this.chatService.setupTwilio();
-        this.customerId = this.chatService.customerId;
+        this.customerUserId = this.chatService.customerUserId;
     }
 
     startChat() {
@@ -45,7 +45,7 @@ export class ChatComponent implements OnInit {
 
         console.log("attempting to join channel");
 
-        this.print('Logged in with customerId: ' + this.customerId);
+        this.print('Logged in with customerUserId: ' + this.customerUserId);
 
         this.chatService.joinChannel().then(() => {
             console.log("watching channel for events");
@@ -115,8 +115,8 @@ export class ChatComponent implements OnInit {
 
     onSubmit() {
         console.log("on submit called");
-        var attributes: MessageAttributes = {
-            customerId: this.customerId,
+        let attributes: MessageAttributes = {
+            customerUserId: this.customerUserId,
             messageTypeId: 0
         };
         this.chatService.currentChannel.sendMessage(this.input, attributes);
@@ -132,7 +132,7 @@ export class ChatComponent implements OnInit {
 
     printMessage(message: Message) {
 
-        var senderId = parseInt(message.author.split(":")[1]);
+        let senderId = parseInt(message.author.split(":")[1]);
 
         if (message.attributes.messageTypeId === 1) { // SMS
             return;
@@ -143,7 +143,7 @@ export class ChatComponent implements OnInit {
             message.isDocument = true;
         }
 
-        message.isMe = senderId === this.customerId;
+        message.isMe = senderId === this.customerUserId;
         message.displayName = message.author.split(":")[2].replace("_", " ");
         this.messages.push(message);
     }

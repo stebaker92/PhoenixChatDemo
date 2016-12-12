@@ -2,7 +2,7 @@
     <label>Username</label>
     <br>
     <select [(ngModel)]="selectedUser" class="form-control">
-        <option *ngFor="let u of users" [ngValue]="u">{{u.id + ' - ' + u.email}}</option>
+        <option *ngFor="let u of users" [ngValue]="u">{{u.customerUserId + ' - ' + u.email}}</option>
     </select>
 </div>
 

@@ -23,7 +23,7 @@ export class ChatService {
 
     channelName: string;
 
-    customerId: number;
+    customerUserId: number;
 
     constructor(private userService: UserService, private router: Router, private syncService: SyncService, private fileService: FileService) {
     }
@@ -36,8 +36,8 @@ export class ChatService {
             return;
         }
 
-        this.customerId = this.userService.customerId;
-        this.channelName = "customer:" + this.customerId;
+        this.customerUserId = this.userService.customerUserId;
+        this.channelName = "customer:" + this.customerUserId;
 
         console.log("creating Twilio manager");
 
@@ -80,7 +80,7 @@ export class ChatService {
     }
 
     sendFile(file: File) {
-        var data = {};
+        let data = {};
         let formData = new FormData();
         formData.append("file", file, file.name);
 
@@ -92,7 +92,7 @@ export class ChatService {
                 filename: file.name
             };
             var messageAttributes: MessageAttributes = {
-                customerId: this.customerId,
+                customerUserId: this.customerUserId,
                 messageTypeId: 2 // DOCUMENT
             };
 

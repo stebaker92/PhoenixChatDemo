@@ -17,13 +17,13 @@ export class LoginComponent {
 
     constructor(private router: Router, private userService: UserService) {
         this.users = [
-            {id: 1059608, email: 'stephen.baker@carfinance247.co.uk', password: ''},
-            {id: 1059609, email: 'fredperry9@hotmail.com', password: ''}
+            {customerId: 1059608, customerUserId: 168751, email: 'stephen.baker@carfinance247.co.uk', password: ''},
+            {customerId: 1059609, customerUserId: null, email: 'fredperry9@hotmail.com', password: ''}
         ];
     }
 
     login() {
-        this.userService.authenticate(this.selectedUser.id, this.selectedUser.email, this.selectedUser.password).then(() => {
+        this.userService.authenticate(this.selectedUser.customerUserId, this.selectedUser.email, this.selectedUser.password).then(() => {
             this.router.navigate(['/list']);
         });
     }

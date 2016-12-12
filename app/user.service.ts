@@ -5,7 +5,7 @@ import {AppSettings} from "./app.settings";
 @Injectable()
 export class UserService {
 
-    customerId: number;
+    customerUserId: number;
 
     authApiTokenRoute = AppSettings.authApiTokenRoute;
     contactCentreApiTokenRoute = AppSettings.contactCentreApi + "auth/customer/";
@@ -16,8 +16,8 @@ export class UserService {
     constructor(private http: Http) {
     }
 
-    authenticate(customerId: number, email: string, password: string) {
-        this.customerId = customerId;
+    authenticate(customerUserId: number, email: string, password: string) {
+        this.customerUserId = customerUserId;
 
         let credentials = {userName: email, password: 'indigohome67', clientId: 'mobile', accessType: 3};
 
@@ -35,6 +35,6 @@ export class UserService {
     }
 
     loggedIn() {
-        return this.customerId && this.twilioToken;
+        return this.customerUserId && this.twilioToken;
     }
 }
