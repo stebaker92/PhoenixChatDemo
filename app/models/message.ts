@@ -1,15 +1,14 @@
 export class Message {
-    author: string;
+    author: string; //the identity of the sender i.e customer:1:mr_test
     body: string;
     attributes: MessageAttributes;
 
     isMe: boolean;
     isInfo: boolean;
 
-    displayName: string; // name taken from message author
+    displayName: string; // display name parsed from from message author or retrieved from DB
 
     //document stuff
-
     filename: string;
     documentId: number;
     isDocument: boolean;

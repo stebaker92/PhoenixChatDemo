@@ -44,7 +44,8 @@ export class ChatComponent implements OnInit {
 
         //Get the message history from the contact centre
         this.chatService.getMessages().then((response: any) => {
-            this.messages = response.data;
+            this.messages = response.json();
+            console.log(this.messages);
         });
 
         console.log("attempting to join channel");
