@@ -30,6 +30,7 @@ export class UserService {
 
             return this.http.post(this.contactCentreApiTokenRoute, null, {headers: headers}).toPromise().then((response) => {
                 this.twilioToken = response.text();
+                console.log("got twilio token");
             });
         });
     }

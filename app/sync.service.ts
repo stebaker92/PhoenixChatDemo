@@ -14,7 +14,7 @@ export class SyncService {
     constructor(private http: Http, private userService: UserService) {
     }
 
-    setup(accessManager) {
+    initialize(accessManager) {
         console.log("Setting up sync");
         this.syncClient = new (<any>window).Twilio.Sync.Client(accessManager);
     }

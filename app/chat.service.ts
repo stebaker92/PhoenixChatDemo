@@ -21,6 +21,7 @@ export class ChatService {
     // A handle to the customers chat channel - the one and only channel we need in this sample app
     currentChannel;
 
+    // Channel name should be: "Customer:123" where 123 is the customerUserId
     channelName: string;
 
     customerUserId: number;
@@ -44,8 +45,7 @@ export class ChatService {
         this.accessManager = new (<any>window).Twilio.AccessManager(this.userService.twilioToken);
         this.messagingClient = new (<any>window).Twilio.IPMessaging.Client(this.accessManager);
 
-        this.syncService.setup(this.accessManager);
-
+        this.syncService.initialize(this.accessManager);
 
         console.log("created Twilio manager");
     }
