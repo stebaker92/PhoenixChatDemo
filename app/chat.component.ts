@@ -18,7 +18,7 @@ export class ChatComponent implements OnInit {
     }
 
     // True when connected to the chat channel
-    connectedToAgent = false;
+    connectedToChannel = false;
 
     customerUserId: number;
 
@@ -48,7 +48,7 @@ export class ChatComponent implements OnInit {
 
         this.chatService.joinChannel().then(() => {
             console.log("watching channel for events");
-            this.connectedToAgent = true;
+            this.connectedToChannel = true;
             this.chatService.currentChannel.on("typingStarted", (member) => {
                 this.updateTypingIndicator(true, member);
             });
@@ -58,13 +58,13 @@ export class ChatComponent implements OnInit {
             });
 
             this.chatService.currentChannel.on("messageAdded", (message: Message)=> {
-                this.connectedToAgent = true;
+                this.connectedToChannel = true;
                 console.log("message received", message.body);
                 this.printMessage(message);
             });
 
             this.chatService.currentChannel.on("memberJoined", (member: Member) => {
-                this.connectedToAgent = true;
+                this.connectedToChannel = true;
                 var displayName = member.userInfo.identity.split(":")[2].replace("_", " ");
                 this.print("You are now connected to '" + displayName + "' ");
 
@@ -113,11 +113,12 @@ export class ChatComponent implements OnInit {
     }
 
     onSubmit() {
-        console.log("on submit called");
         let attributes: MessageAttributes = {
             customerUserId: this.customerUserId,
             messageTypeId: 0
         };
+        console.log("on submit called. message attributes is: ", attributes);
+
         this.chatService.currentChannel.sendMessage(this.input, attributes);
         this.input = "";
     }

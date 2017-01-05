@@ -1,6 +1,6 @@
 <div id="chat-box" [ngStyle]="{'padding-top': chatStarted ? '0' : '10px'}">
     <div id="chat-header" [ngStyle]="{'display': chatStarted ? 'block' : 'none'}">
-        <p *ngIf="!connectedToAgent && chatStarted">Connecting to agent...</p>
+        <p *ngIf="!connectedToChannel && chatStarted">Connecting to agent...</p>
         <div style="clear:both"></div>
     </div>
     <div id="messages" [ngStyle]="{'display': chatStarted ? 'block' : 'none'}">
@@ -15,8 +15,8 @@
     <input type="button" *ngIf="!chatStarted" (click)="startChat()" value="Start Chat" style="width: 100%;"/>
 
     <form name="message" *ngIf="chatStarted">
-        <input id="chat-input" name="chat-input" type="text" [placeholder]="!connectedToAgent ? 'Connecting to agent...' : 'say anything!'" autofocus [(ngModel)]="input" [disabled]="!connectedToAgent"/>
-        <input type="submit" id="send-message-btn" value="Send" (click)="onSubmit()" [disabled]="!connectedToAgent" />
-        <input id="chat-file-input" type="file" value="Send Document" (change)="sendDocument($event)" [disabled]="!connectedToAgent" />
+        <input id="chat-input" name="chat-input" type="text" [placeholder]="!connectedToChannel ? 'Connecting to agent...' : 'say anything!'" autofocus [(ngModel)]="input" [disabled]="!connectedToChannel"/>
+        <input type="submit" id="send-message-btn" value="Send" (click)="onSubmit()" [disabled]="!connectedToChannel" />
+        <input id="chat-file-input" type="file" value="Send Document" (change)="sendDocument($event)" [disabled]="!connectedToChannel" />
     </form>
 </div>

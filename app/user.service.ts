@@ -18,6 +18,7 @@ export class UserService {
 
     authenticate(customerUserId: number, email: string, password: string) {
         this.customerUserId = customerUserId;
+        console.log("customerUserId is", customerUserId);
 
         let credentials = {userName: email, password: 'indigohome67', clientId: 'mobile', accessType: 3};
 
