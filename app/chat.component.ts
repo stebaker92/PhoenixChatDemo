@@ -42,6 +42,11 @@ export class ChatComponent implements OnInit {
     startChat() {
         this.chatStarted = true;
 
+        //Get the message history from the contact centre
+        this.chatService.getMessages().then((response: any) => {
+            this.messages = response.data;
+        });
+
         console.log("attempting to join channel");
 
         this.print('Logged in with customerUserId: ' + this.customerUserId);
@@ -57,7 +62,7 @@ export class ChatComponent implements OnInit {
                 this.updateTypingIndicator(false);
             });
 
-            this.chatService.currentChannel.on("messageAdded", (message: Message)=> {
+            this.chatService.currentChannel.on("messageAdded", (message: Message) => {
                 this.connectedToChannel = true;
                 console.log("message received", message.body);
                 this.printMessage(message);
@@ -65,19 +70,19 @@ export class ChatComponent implements OnInit {
 
             this.chatService.currentChannel.on("memberJoined", (member: Member) => {
                 this.connectedToChannel = true;
-                var displayName = member.userInfo.identity.split(":")[2].replace("_", " ");
+                let displayName = member.userInfo.identity.split(":")[2].replace("_", " ");
                 this.print("You are now connected to '" + displayName + "' ");
 
                 console.log("member joined", member);
             });
 
             this.chatService.currentChannel.on("memberLeft", (member: Member) => {
-                var displayName = member.userInfo.identity.split(":")[2].replace("_", " ");
+                let displayName = member.userInfo.identity.split(":")[2].replace("_", " ");
                 this.print("'" + displayName + "' has left the chat");
             });
 
-            setTimeout(function(){
-                var $messagingContext = this.$('#messages');
+            setTimeout(function () {
+                let $messagingContext = this.$('#messages');
                 $messagingContext.on('DOMNodeInserted', function () {
                     $messagingContext.scrollTop($messagingContext[0].scrollHeight);
                 });
@@ -89,7 +94,7 @@ export class ChatComponent implements OnInit {
     sendDocument(event) {
         console.log("sendDoc called");
 
-        var files = event.srcElement.files;
+        let files = event.srcElement.files;
         if (!files) {
             return;
         }

@@ -4,7 +4,8 @@ import {UserService} from "./user.service";
 import {Router} from "@angular/router";
 import {SyncService} from "./sync.service";
 import {FileService} from "./file.service";
-import {MessageAttributes} from "./models/message";
+import {MessageAttributes, Message} from "./models/message";
+import {AppSettings} from "./app.settings";
 
 @Injectable()
 export class ChatService {
@@ -26,7 +27,7 @@ export class ChatService {
 
     customerUserId: number;
 
-    constructor(private userService: UserService, private router: Router, private syncService: SyncService, private fileService: FileService) {
+    constructor(private userService: UserService, private router: Router, private syncService: SyncService, private fileService: FileService, private http: Http) {
     }
 
     setupTwilio() {
@@ -84,14 +85,14 @@ export class ChatService {
         let formData = new FormData();
         formData.append("file", file, file.name);
 
-        this.fileService.post(formData).then((response: any)=> {
-            var documentId = response.json();
+        this.fileService.post(formData).then((response: any) => {
+            let documentId = response.json();
 
-            var documentAttributes = {
+            let documentAttributes = {
                 documentId: documentId,
                 filename: file.name
             };
-            var messageAttributes: MessageAttributes = {
+            let messageAttributes: MessageAttributes = {
                 customerUserId: this.customerUserId,
                 messageTypeId: 2 // DOCUMENT
             };
@@ -100,5 +101,12 @@ export class ChatService {
 
             return documentId;
         });
+    }
+
+    getMessages() {
+        let headers = new Headers();
+        headers.append("Authorization", this.userService.customerToken.authenticationToken);
+
+        return this.http.get(AppSettings.contactCentreApi + 'messages/customer/' + this.customerUserId, {headers:headers}).toPromise();
     }
 }
