@@ -1,5 +1,5 @@
 import {Component}          from '@angular/core';
-import {ROUTER_DIRECTIVES, Router}  from '@angular/router';
+import {Router}  from '@angular/router';
 import {CarService}        from './car.service';
 import {ChatService}        from './chat.service';
 import './rxjs-extensions';
@@ -12,7 +12,6 @@ import {ChatComponent} from "./chat.component";
     selector: 'my-app',
     templateUrl: "app/app.component.html",
     styleUrls: ['app/app.component.css'],
-    directives: [ROUTER_DIRECTIVES, ChatComponent],
     providers: [
         CarService, ChatService, FileService, UserService, SyncService
     ]

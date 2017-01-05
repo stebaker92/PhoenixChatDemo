@@ -4,8 +4,7 @@ import {UserService} from "../user.service";
 
 @Component({
     selector: 'my-car-detail',
-    templateUrl: 'app/login/login.component.html',
-    directives: []
+    templateUrl: 'app/login/login.component.html'
 })
 export class LoginComponent {
 

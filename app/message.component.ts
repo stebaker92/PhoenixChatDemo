@@ -6,7 +6,6 @@ import {FileService} from "./file.service";
 @Component({
     selector: 'message',
     templateUrl: 'app/message.component.html',
-    directives: [NgClass],
     styleUrls: ["app/chat.component.css"]
 })
 export class MessageComponent implements OnInit {

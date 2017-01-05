@@ -7,8 +7,7 @@ import {Member} from "./models/member";
 @Component({
     selector: 'chat',
     templateUrl: 'app/chat.component.html',
-    styleUrls: ['app/chat.component.css'],
-    directives: [MessageComponent]
+    styleUrls: ['app/chat.component.css']
 })
 
 export class ChatComponent implements OnInit {

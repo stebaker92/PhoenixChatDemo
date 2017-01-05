@@ -9,8 +9,7 @@ import {ChatComponent} from "../chat.component";
 @Component({
     selector: 'car-list',
     templateUrl: 'app/car-list/car-list.component.html',
-    styleUrls: ['app/car-list/car-list.component.css'],
-    directives: [CarDetailComponent, ChatComponent]
+    styleUrls: ['app/car-list/car-list.component.css']
 })
 export class CarListComponent implements OnInit {
     cars: Car[];

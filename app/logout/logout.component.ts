@@ -5,8 +5,7 @@ import {SyncService} from "../sync.service";
 
 @Component({
     selector: 'logout',
-    templateUrl: 'app/logout/logout.component.html',
-    directives: []
+    templateUrl: 'app/logout/logout.component.html'
 })
 export class LogoutComponent implements OnInit {
 

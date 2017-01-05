@@ -1,11 +1,11 @@
-import {provideRouter, RouterConfig}  from '@angular/router';
+import {RouterModule, Routes}  from '@angular/router';
 
 import {CarDetailComponent} from './car-detail/car-detail.component';
 import {LoginComponent} from "./login/login.component";
 import {CarListComponent} from "./car-list/car-list.component";
 import {LogoutComponent} from "./logout/logout.component";
 
-const routes: RouterConfig = [
+const routes: Routes = [
     {
         path: 'login',
         component: LoginComponent
@@ -29,6 +29,4 @@ const routes: RouterConfig = [
     }
 ];
 
-export const appRouterProviders = [
-    provideRouter(routes)
-];
+export const appRoutes = routes;
