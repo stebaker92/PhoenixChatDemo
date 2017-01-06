@@ -1,7 +1,6 @@
 import {Component, OnInit, Input} from '@angular/core'
 import {ChatService} from "./chat.service";
 import {Message, MessageAttributes} from "./models/message"
-import {MessageComponent} from "./message.component";
 import {Member} from "./models/member";
 
 @Component({

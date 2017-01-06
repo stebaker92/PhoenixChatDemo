@@ -1,6 +1,6 @@
 <div id="chat-box" [ngStyle]="{'padding-top': chatStarted ? '0' : '10px'}">
     <div id="chat-header" [ngStyle]="{'display': chatStarted ? 'block' : 'none'}">
-        <p *ngIf="!connectedToChannel && chatStarted">Connecting to agent...</p>
+        <p *ngIf="!connectedToChannel && chatStarted">Connecting to channel...</p>
         <div style="clear:both"></div>
     </div>
     <div id="messages" [ngStyle]="{'display': chatStarted ? 'block' : 'none'}">
