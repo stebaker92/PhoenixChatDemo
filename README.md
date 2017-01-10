@@ -1,18 +1,14 @@
 # PhoenixChatDemo
-Some crappy incomplete programmable chat demo for Phoenix, which will uses chat, customer presence and context
-
-## Setup
-Just clone the repo, and open index.html with WebStorm (index.html => "open in browser") 
+Some crappy incomplete programmable chat demo for Phoenix, which will use chat, customer presence and context
 
 ## Run instructions
 - npm install
-- npm tsc
-- npm run lite
+- npm run start (or with WebStorm, open index.html through WebStorm [rightclick => open in browser])
 
 The following APIs are required (set these URLs in app.settings.ts): 
 - Contact Centre Api
 - Document Api
-- (new) Auth Api
+- (new) Authentication Api
 
 You will also need a mock customer set up to login (modify these in login.component.ts)
 
