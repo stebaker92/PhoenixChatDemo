@@ -15,7 +15,7 @@
     <input type="button" *ngIf="!chatStarted" (click)="startChat()" value="Start Chat" style="width: 100%;"/>
 
     <form name="message" *ngIf="chatStarted">
-        <input id="chat-input" name="chat-input" type="text" [placeholder]="!connectedToChannel ? 'Connecting to channel...' : 'say anything!'" autofocus [(ngModel)]="input" [disabled]="!connectedToChannel"/>
+        <input id="chat-input" name="chat-input" type="text" [placeholder]="!connectedToChannel ? 'Connecting to channel...' : 'say anything!'" autofocus [(ngModel)]="input" [disabled]="!connectedToChannel" (keypress)="onKeyPress()"/>
         <input type="submit" id="send-message-btn" value="Send" (click)="onSubmit()" [disabled]="!connectedToChannel" />
         <input id="chat-file-input" type="file" value="Send Document" (change)="sendDocument($event)" [disabled]="!connectedToChannel" />
     </form>
