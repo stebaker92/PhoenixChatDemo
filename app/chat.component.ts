@@ -149,6 +149,16 @@ export class ChatComponent implements OnInit {
             message.filename = JSON.parse(message.body).filename;
             message.documentId = JSON.parse(message.body).documentId;
             message.isDocument = true;
+        } else if (message.attributes.messageTypeId === MessageType.Event) {
+            console.log('event happened:', message);
+            switch (message.attributes.messageEventTypeId) {
+                case 4:
+                    message._body = 'We are now connecting you to an agent';
+                    break;
+                default:
+                    // Don't show other events to the customer;
+                    return;
+            }
         }
 
         this.messages.push(message);

@@ -1,6 +1,7 @@
 export class Message {
     author: string; //the identity of the sender i.e customer:1:mr_test
     body: string;
+    _body: string; // Chat setter
     attributes: MessageAttributes;
 
     isMe: boolean;
