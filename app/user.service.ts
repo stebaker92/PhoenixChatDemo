@@ -22,15 +22,15 @@ export class UserService {
 
         let credentials = {userName: email, password: 'indigohome67', clientId: 'mobile', accessType: 3};
 
-        return this.http.post(this.authApiTokenRoute, credentials).toPromise().then((response) => {
-            this.customerToken = response.json();
+        return this.http.post(this.authApiTokenRoute, credentials).toPromise().then((authTokenResponse) => {
+            this.customerToken = authTokenResponse.json();
             console.log("got customer token from AuthApi", this.customerToken.authenticationToken);
 
             let headers = new Headers();
             headers.append("Authorization", this.customerToken.authenticationToken);
 
-            return this.http.post(this.contactCentreApiTokenRoute, null, {headers: headers}).toPromise().then((response) => {
-                this.twilioToken = response.text();
+            return this.http.post(this.contactCentreApiTokenRoute, null, {headers: headers}).toPromise().then((twilioTokenResponse) => {
+                this.twilioToken = twilioTokenResponse.text();
                 console.log("got twilio token");
             });
         });

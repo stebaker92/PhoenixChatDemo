@@ -7,7 +7,7 @@ import {ChatService} from "./chat.service";
 import {FileService} from "./file.service";
 import {SyncService} from "./sync.service";
 import {UserService} from "./user.service";
-import {RouterModule, Routes} from "@angular/router";
+import {RouterModule} from "@angular/router";
 import {CarDetailComponent} from "./car-detail/car-detail.component";
 import {CarListComponent} from "./car-list/car-list.component";
 import {LogoutComponent} from "./logout/logout.component";

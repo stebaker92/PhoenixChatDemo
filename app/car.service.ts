@@ -1,5 +1,5 @@
 import {Injectable}    from '@angular/core';
-import {Headers, Http} from '@angular/http';
+import {Http} from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 import {Car} from './models/car';
 
@@ -22,17 +22,11 @@ export class CarService {
             .then(cars => cars.find(car => car.id === id));
     }
 
-    private handleError(error: any) {
-        console.error('An error occurred', error);
-        return Promise.reject(error.message || error);
-    }
-
     toCarArray(response: any): Car[] {
-        return response.json().map((c)=> c);
+        return response.json().map((c) => c);
     }
 
     toCar(r: any): Car {
         return r;
     }
-
 }

@@ -1,12 +1,10 @@
 import {Component}          from '@angular/core';
-import {Router}  from '@angular/router';
 import {CarService}        from './car.service';
 import {ChatService}        from './chat.service';
 import './rxjs-extensions';
 import {FileService} from "./file.service";
 import {UserService} from "./user.service";
 import {SyncService} from "./sync.service";
-import {ChatComponent} from "./chat.component";
 
 @Component({
     selector: 'my-app',

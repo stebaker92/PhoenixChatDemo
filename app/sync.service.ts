@@ -26,12 +26,13 @@ export class SyncService {
         headers.append("Authorization", this.userService.customerToken.authenticationToken);
 
         return this.http.post(this.contextApiRoute + "?context=" + context, null, {headers: headers}).toPromise().then(() => {
-            console.debug("context updated");
+            console.log("context updated");
         });
     }
 
     shutdown() {
-        if (this.syncClient)
+        if (this.syncClient) {
             this.syncClient.shutdown();
+        }
     }
 }

@@ -1,6 +1,6 @@
-import {Component, OnInit, Input} from '@angular/core'
+import {Component, OnInit} from '@angular/core';
 import {ChatService} from "./chat.service";
-import {Message, MessageAttributes} from "./models/message"
+import {Message, MessageAttributes} from "./models/message";
 import {Member} from "./models/member";
 import {MessageType} from "./enums/message-type";
 
@@ -12,11 +12,6 @@ import {MessageType} from "./enums/message-type";
 
 export class ChatComponent implements OnInit {
 
-    // //typescript hack for jQuery // installing jquery.d.ts fails
-    $(s: any) {
-        return (<any>window).$(s);
-    }
-
     // True when connected to the chat channel
     connectedToChannel = false;
 
@@ -24,12 +19,17 @@ export class ChatComponent implements OnInit {
 
     messages: Message[] = [];
 
-    input = "";
+    input = '';
 
     membersTyping: string;
 
-    //start chat button clicked
+    // start chat button clicked
     chatStarted: boolean;
+
+    // //typescript hack for jQuery // installing jquery.d.ts fails
+    $(s: any) {
+        return (<any>window).$(s);
+    }
 
     constructor(private chatService: ChatService) {
     }
@@ -42,7 +42,7 @@ export class ChatComponent implements OnInit {
     startChat() {
         this.chatStarted = true;
 
-        //Get the message history from the contact centre
+        // Get the message history from the contact centre
         this.chatService.getMessages().then((response: any) => {
             this.messages = response.json();
             console.log(this.messages);
@@ -133,7 +133,7 @@ export class ChatComponent implements OnInit {
 
         let senderId;
         if (message.author !== 'system') {
-            senderId = parseInt(message.author.split(":")[1]);
+            senderId = parseInt(message.author.split(":")[1], 10);
             message.isMe = senderId === this.customerUserId;
             message.displayName = message.author.split(":")[2].replace("_", " ");
         } else {
@@ -144,8 +144,7 @@ export class ChatComponent implements OnInit {
 
         if (message.attributes.messageTypeId === MessageType.Sms) {
             return;
-        }
-        else if (message.attributes.messageTypeId === MessageType.Document) {
+        } else if (message.attributes.messageTypeId === MessageType.Document) {
             message.filename = JSON.parse(message.body).filename;
             message.documentId = JSON.parse(message.body).documentId;
             message.isDocument = true;

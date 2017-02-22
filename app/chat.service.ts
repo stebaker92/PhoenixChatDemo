@@ -4,14 +4,12 @@ import {UserService} from "./user.service";
 import {Router} from "@angular/router";
 import {SyncService} from "./sync.service";
 import {FileService} from "./file.service";
-import {MessageAttributes, Message} from "./models/message";
+import {MessageAttributes} from "./models/message";
 import {AppSettings} from "./app.settings";
+import {MessageType} from "./enums/message-type";
 
 @Injectable()
 export class ChatService {
-
-    //typescript hack for jQuery // todo install jquery.d.ts (currently won't install)
-    //$: any;
 
     // Manages the state of our access token we got from the server
     accessManager;
@@ -60,28 +58,25 @@ export class ChatService {
         console.log('Attempting to join "' + this.channelName + '" chat channel...');
 
         // Get the custom chat channel
-        var promise = this.messagingClient.getChannelByUniqueName(this.channelName);
+        let promise = this.messagingClient.getChannelByUniqueName(this.channelName);
         return promise.then((channel) => {
             this.currentChannel = channel;
-            if (!this.currentChannel) {
-                // If it doesn't exist, let's create it
-                this.messagingClient.createChannel({
-                    uniqueName: this.channelName,
-                    friendlyName: this.channelName
-                }).then((channel) => {
-                    console.log('Created "' + this.channelName + '" channel:');
-                    this.currentChannel = channel;
-                    return this.currentChannel.join();
-                });
-            } else {
-                console.log('Joining existing channel');
+            console.log('Joining existing channel');
+            return this.currentChannel.join();
+        }, () => {
+            // If it doesn't exist, let's create it
+            this.messagingClient.createChannel({
+                uniqueName: this.channelName,
+                friendlyName: this.channelName
+            }).then((channel) => {
+                console.log('Created "' + this.channelName + '" channel:');
+                this.currentChannel = channel;
                 return this.currentChannel.join();
-            }
+            });
         });
     }
 
     sendFile(file: File) {
-        let data = {};
         let formData = new FormData();
         formData.append("file", file, file.name);
 
@@ -94,7 +89,7 @@ export class ChatService {
             };
             let messageAttributes: MessageAttributes = {
                 customerUserId: this.customerUserId,
-                messageTypeId: 2 // DOCUMENT
+                messageTypeId: MessageType.Document
             };
 
             this.currentChannel.sendMessage(JSON.stringify(documentAttributes), messageAttributes);
@@ -107,6 +102,6 @@ export class ChatService {
         let headers = new Headers();
         headers.append("Authorization", this.userService.customerToken.authenticationToken);
 
-        return this.http.get(AppSettings.contactCentreApi + 'messages/customer/' + this.customerUserId, {headers:headers}).toPromise();
+        return this.http.get(AppSettings.contactCentreApi + 'messages/customer/' + this.customerUserId, {headers: headers}).toPromise();
     }
 }
