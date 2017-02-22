@@ -71,15 +71,8 @@ export class ChatComponent implements OnInit {
 
             this.chatService.currentChannel.on("memberJoined", (member: Member) => {
                 this.connectedToChannel = true;
-                let displayName = member.userInfo.identity.split(":")[2].replace("_", " ");
-                this.print("You are now connected to '" + displayName + "' ");
 
                 console.log("member joined", member);
-            });
-
-            this.chatService.currentChannel.on("memberLeft", (member: Member) => {
-                let displayName = member.userInfo.identity.split(":")[2].replace("_", " ");
-                this.print("'" + displayName + "' has left the chat");
             });
 
             setTimeout(function () {
@@ -138,19 +131,26 @@ export class ChatComponent implements OnInit {
 
     printMessage(message: Message) {
 
-        let senderId = parseInt(message.author.split(":")[1]);
+        let senderId;
+        if (message.author !== 'system') {
+            senderId = parseInt(message.author.split(":")[1]);
+            message.isMe = senderId === this.customerUserId;
+            message.displayName = message.author.split(":")[2].replace("_", " ");
+        } else {
+            senderId = -1;
+            message.displayName = 'system';
+            message.isEvent = true;
+        }
 
-        if (message.attributes.messageTypeId === 1) { // SMS
+        if (message.attributes.messageTypeId === MessageType.Sms) {
             return;
         }
-        else if (message.attributes.messageTypeId === 2) { // DOCUMENT
+        else if (message.attributes.messageTypeId === MessageType.Document) {
             message.filename = JSON.parse(message.body).filename;
             message.documentId = JSON.parse(message.body).documentId;
             message.isDocument = true;
         }
 
-        message.isMe = senderId === this.customerUserId;
-        message.displayName = message.author.split(":")[2].replace("_", " ");
         this.messages.push(message);
     }
 }

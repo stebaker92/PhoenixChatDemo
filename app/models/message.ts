@@ -7,6 +7,7 @@ export class Message {
     isInfo: boolean;
 
     displayName: string; // display name parsed from from message author or retrieved from DB
+    isEvent: boolean;
 
     //document stuff
     filename: string;
@@ -17,4 +18,5 @@ export class Message {
 export class MessageAttributes {
     messageTypeId: number;
     customerUserId: number;
+    messageEventTypeId?: number;
 }
