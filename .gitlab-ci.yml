@@ -1,0 +1,15 @@
+image: node:latest
+
+cache:
+  paths:
+  - node_modules/
+
+lint:
+  script:
+   - npm install
+   - npm run lint
+   
+compile:
+  script:
+   - npm install
+   - npm run tsc
