@@ -1,4 +1,4 @@
-# PhoenixChatDemo
+# Phoenix Chat Demo
 Some crappy incomplete programmable chat demo for Phoenix, which will use chat, customer presence and context
 
 ## Run instructions
