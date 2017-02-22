@@ -2,6 +2,7 @@ import {Component, OnInit, Input} from '@angular/core'
 import {ChatService} from "./chat.service";
 import {Message, MessageAttributes} from "./models/message"
 import {Member} from "./models/member";
+import {MessageType} from "./enums/message-type";
 
 @Component({
     selector: 'chat',
