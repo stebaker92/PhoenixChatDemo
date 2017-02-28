@@ -154,6 +154,9 @@ export class ChatComponent implements OnInit {
                 case 4:
                     message._body = 'We are now connecting you to an agent';
                     break;
+                case 5:
+                    message._body = 'We are currently closed ';
+                    break;
                 default:
                     // Don't show other events to the customer;
                     return;
