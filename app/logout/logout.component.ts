@@ -14,6 +14,8 @@ export class LogoutComponent implements OnInit {
 
     ngOnInit() {
         this.userService.customerUserId = null;
+        this.userService.twilioToken = null;
+        this.userService.customerToken = null;
         this.syncService.shutdown();
 
         this.router.navigate(['/login']);
