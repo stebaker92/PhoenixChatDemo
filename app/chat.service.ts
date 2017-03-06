@@ -42,7 +42,7 @@ export class ChatService {
         console.log("creating Twilio manager");
 
         this.accessManager = new (<any>window).Twilio.AccessManager(this.userService.twilioToken);
-        this.messagingClient = new (<any>window).Twilio.IPMessaging.Client(this.accessManager);
+        this.messagingClient = new (<any>window).Twilio.Chat.Client(this.userService.twilioToken);
 
         this.syncService.initialize(this.accessManager);
 
@@ -54,18 +54,18 @@ export class ChatService {
     }
 
     joinChannel() {
-
         console.log('Attempting to join "' + this.channelName + '" chat channel...');
 
         // Get the custom chat channel
         let promise = this.messagingClient.getChannelByUniqueName(this.channelName);
         return promise.then((channel) => {
+            console.log('Channel found: joining existing channel');
             this.currentChannel = channel;
-            console.log('Joining existing channel');
             return this.currentChannel.join();
-        }, () => {
+        }, (error, details) => {
             // If it doesn't exist, let's create it
-            this.messagingClient.createChannel({
+            console.log('Channel not found: creating');
+            return this.messagingClient.createChannel({
                 uniqueName: this.channelName,
                 friendlyName: this.channelName
             }).then((channel) => {
