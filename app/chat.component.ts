@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit} from "@angular/core";
 import {ChatService} from "./chat.service";
 import {Message, MessageAttributes} from "./models/message";
 import {Member} from "./models/member";
@@ -44,7 +44,9 @@ export class ChatComponent implements OnInit {
 
         // Get the message history from the contact centre
         this.chatService.getMessages().then((response: any) => {
-            this.messages = response.json();
+            this.messages = response.json().filter((message: any) => {
+                return message.messageTypeId !== MessageType.Event;
+            });
             console.log(this.messages);
         });
 
