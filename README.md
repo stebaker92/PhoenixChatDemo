@@ -1,9 +1,9 @@
-# Phoenix Chat Demo
-Some crappy incomplete programmable chat demo for Phoenix, which will use chat, customer presence and context
+# Programmable Chat Demo
+An incomplete Twilio Programmable Chat demo (for Phoenix), which will use chat, customer presence and context
 
 ## Run instructions
 - npm install
-- npm run start (or with WebStorm, open index.html through WebStorm [rightclick => open in browser])
+- npm start (or with WebStorm, open index.html through WebStorm [rightclick => open in browser])
 
 The following APIs are required (set these URLs in app.settings.ts): 
 - Contact Centre Api
