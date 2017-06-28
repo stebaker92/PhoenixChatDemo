@@ -1,5 +1,5 @@
 # Programmable Chat Demo
-An incomplete Twilio Programmable Chat demo (for Phoenix), which will use chat, customer presence and context
+A Twilio Programmable Chat demo (for Phoenix), which has chat, customer presence and context
 
 ## Run instructions
 - npm install
@@ -8,7 +8,7 @@ An incomplete Twilio Programmable Chat demo (for Phoenix), which will use chat, 
 The following APIs are required (set these URLs in app.settings.ts): 
 - Contact Centre Api
 - Document Api
-- (new) Authentication Api
+- Authentication Api
 
 You will also need a mock customer set up to login (modify these in login.component.ts)
 
